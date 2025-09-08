@@ -19,7 +19,10 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@models/*": ["./src/models/*"]
+      "@models/*": ["./src/models/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@controllers/*": ["./src/controllers/*"]
     }
   },
   "include": ["**/*"],
