@@ -5,6 +5,8 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import {router} from "@routes/Router";
 import {CORS, ENDPOINTS, PORT} from "@config/server";
+import {sequelize} from "@config/database";
+import {User} from "@models/User";
 
 dotenv.config()
 
@@ -14,8 +16,17 @@ app.use(Express.json())
 app.use(cors(CORS))
 app.use(helmet())
 app.use(cookieParser())
-app.use(ENDPOINTS.baseUrl ,router)
+app.use(ENDPOINTS.baseUrl, router)
 
-app.listen(PORT, () => {
-    console.log('Server work on ' + PORT)
+sequelize.sync({alter:true}).then(() => {
+    console.log('Database connected!')
+    app.listen(PORT, () => {
+        console.log('Server work on ' + PORT)
+        console.warn('http://localhost:' + PORT + '/api')
+    })
+    User.sync({alter:true})
+}).catch((err) => {
+    console.log('Database connection error!')
+    console.warn(err)
 })
+
