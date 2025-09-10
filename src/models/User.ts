@@ -53,7 +53,7 @@ User.init({
         }
     },
     password:{
-        type: new DataTypes.STRING(128),
+        type: new DataTypes.STRING(32),
         allowNull: false,
         validate: {
             len: {
