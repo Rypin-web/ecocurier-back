@@ -5,8 +5,6 @@ import cookieParser from "cookie-parser";
 import {router} from "@routes/Router";
 import {CORS, ENDPOINTS, PORT} from "@config/server";
 import {sequelize} from "@config/database";
-import {Categories} from "@models/Categories";
-
 
 var app = Express()
 
@@ -22,7 +20,6 @@ sequelize.sync({alter: true}).then(() => {
         console.log('Server work on ' + PORT)
         console.warn('http://localhost:' + PORT + '/api')
     })
-    Categories.sync({alter: true})
 }).catch((err) => {
     console.log('Database connection error!')
     console.warn(err)
