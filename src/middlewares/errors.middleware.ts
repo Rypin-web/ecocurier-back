@@ -1,8 +1,7 @@
-import {Request, Response} from 'express'
-import {ValidationError} from "sequelize";
-import {QueryError} from 'mysql2'
+import {NextFunction, Request, Response} from 'express'
+import {ApiErrorsType} from "@utils/ApiErrors";
 
-export function errorsMiddleware(err: unknown, req: Request, res: Response) {
+export function errorsMiddleware(err: ApiErrorsType, req: Request, res: Response, next: NextFunction) {
     var responseData = {
         reqData: {
             body: req.body,
@@ -11,24 +10,13 @@ export function errorsMiddleware(err: unknown, req: Request, res: Response) {
                 auth: req.headers.authorization
             },
         },
-        errors:err
+        errors: err.errors
     }
-    console.warn('@@@ Error response!')
+    console.log('@@@ Error response!')
+    console.log(err)
 
-    if (err instanceof ValidationError) {
-        console.warn('@@@ Validation error!')
-        console.warn(err)
-        res.status(400).send({
-            msg: 'Invalid data',
-            ...responseData
-        })
-        return
-    }
-
-    console.warn('@@@ Unknown error')
-    console.warn(err)
-    res.status(500).send({
-        msg: 'Internal server error',
+    res.status(err.status || 500).send({
+        msg: err.msg,
         ...responseData
     })
 }
