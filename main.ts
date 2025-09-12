@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import {router} from "@routes/Router";
 import {CORS, ENDPOINTS, PORT} from "@config/server";
 import {sequelize} from "@config/database";
+import {errorsMiddleware} from "@/middlewares/errors.middleware";
 
 var app = Express()
 
@@ -13,6 +14,7 @@ app.use(cors(CORS))
 app.use(helmet())
 app.use(cookieParser())
 app.use(ENDPOINTS.baseUrl, router)
+app.use(errorsMiddleware)
 
 sequelize.sync({alter: true}).then(() => {
     console.log('Database connected!')
