@@ -53,14 +53,8 @@ User.init({
         }
     },
     password:{
-        type: new DataTypes.STRING(32),
+        type: new DataTypes.STRING(200),
         allowNull: false,
-        validate: {
-            len: {
-                args: [6, 128],
-                msg: 'Password must be between 6 and 128 characters long'
-            }
-        }
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
