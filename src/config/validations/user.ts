@@ -1,15 +1,6 @@
 import {checkSchema} from "express-validator";
 
 export var validateRegisterFields = () => checkSchema({
-    role: {
-        notEmpty: {
-            errorMessage: 'Role is required'
-        },
-        isIn: {
-            options: ['user', 'admin'],
-            errorMessage: 'Invalid role. Role may be user or admin'
-        }
-    },
     first_name: {
         notEmpty: {errorMessage: 'First name is required'},
         isLength: {
@@ -21,10 +12,10 @@ export var validateRegisterFields = () => checkSchema({
         notEmpty: {errorMessage: 'phone is required'},
         isLength: {
             options: {min: 8, max: 32},
-            errorMessage: 'phone must be between 3 and 128 characters long'
+            errorMessage: 'phone must be between 3 and 32 characters long'
         },
         isMobilePhone: {
-            options: ['any'],
+            options: ['ru-RU'],
             errorMessage: 'Invalid phone. Phone may be in ru-RU format'
         }
     },
