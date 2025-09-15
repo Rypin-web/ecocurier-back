@@ -23,7 +23,9 @@ export async function register(req: Request, res: Response, next: NextFunction) 
             })
             res.status(201).send({
                 msg: 'user is created: ' + user.dataValues.first_name,
-                user: {...user.dataValues, password: undefined}
+                data: {
+                    user: {...user.dataValues, password: undefined}
+                }
             })
             return
         }
