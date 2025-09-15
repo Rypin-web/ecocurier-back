@@ -37,3 +37,23 @@ export var validateRegisterFields = () => checkSchema({
         }
     }
 })
+
+export var validateLoginFields = () => checkSchema({
+    email: {
+        notEmpty:true,
+        isEmail: {errorMessage: 'Invalid email'},
+        isLength:{
+            options: {min: 8, max: 128},
+            errorMessage:'Email is too small or big'
+        },
+        errorMessage: 'Email is requires',
+    },
+    password:{
+        notEmpty:true,
+        isLength:{
+            options:{min:6, max:32},
+            errorMessage:'Password is too small or big'
+        },
+        errorMessage:'Password is required'
+    }
+})
