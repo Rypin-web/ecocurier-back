@@ -17,6 +17,14 @@ export class ApiErrors extends Error {
     static userAlreadyCreated (msg?:string, errors?:object,) {
         return new ApiErrors(409, msg, errors)
     }
+
+    static userNotFound (msg?:string, errors?:object,) {
+        return new ApiErrors(404, msg, errors)
+    }
+
+    static invalidCredentials (msg?:string, errors?:object){
+        return new ApiErrors(401, msg, errors)
+    }
 }
 
 export type ApiErrorsType = {
