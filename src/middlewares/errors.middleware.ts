@@ -1,14 +1,17 @@
-import {NextFunction, Request, Response} from 'express'
+import {NextFunction, Response} from 'express'
 import {ApiErrorsType} from "@utils/ApiErrors";
+import {RequestWithUser} from "@/middlewares/requireAuthorization";
 
-export function errorsMiddleware(err: ApiErrorsType, req: Request, res: Response, next: NextFunction) {
+export function errorsMiddleware(err: ApiErrorsType, req: RequestWithUser, res: Response, next: NextFunction) {
     var responseData = {
         reqData: {
             body: req.body,
-            params: req.query,
+            query: req.query,
+            params: req.params,
             headers: {
                 auth: req.headers.authorization
             },
+            userData: req.user
         },
         errors: err.errors
     }
