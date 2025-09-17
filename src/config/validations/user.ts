@@ -1,4 +1,4 @@
-import {checkSchema} from "express-validator";
+import {checkSchema, header, param, query} from "express-validator";
 
 export var validateRegisterFields = () => checkSchema({
     first_name: {
@@ -57,3 +57,5 @@ export var validateLoginFields = () => checkSchema({
         errorMessage:'Password is required'
     }
 })
+
+export var validateGetUserFields = () => header(['authorization' , 'Authorization']).notEmpty().withMessage('Authorization is required')
