@@ -58,4 +58,4 @@ export var validateLoginFields = () => checkSchema({
     }
 })
 
-export var validateGetUserFields = () => header(['authorization' , 'Authorization']).notEmpty().withMessage('Authorization is required')
+
