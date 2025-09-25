@@ -1,4 +1,4 @@
-import {checkSchema, header, param, query} from "express-validator";
+import {checkSchema} from "express-validator";
 
 export var validateRegisterFields = () => checkSchema({
     first_name: {
@@ -40,22 +40,34 @@ export var validateRegisterFields = () => checkSchema({
 
 export var validateLoginFields = () => checkSchema({
     email: {
-        notEmpty:true,
+        notEmpty: true,
         isEmail: {errorMessage: 'Invalid email'},
-        isLength:{
+        isLength: {
             options: {min: 8, max: 128},
-            errorMessage:'Email is too small or big'
+            errorMessage: 'Email is too small or big'
         },
         errorMessage: 'Email is requires',
     },
-    password:{
-        notEmpty:true,
-        isLength:{
-            options:{min:6, max:32},
-            errorMessage:'Password is too small or big'
+    password: {
+        notEmpty: true,
+        isLength: {
+            options: {min: 6, max: 32},
+            errorMessage: 'Password is too small or big'
         },
-        errorMessage:'Password is required'
+        errorMessage: 'Password is required'
     }
 })
 
 
+export var validateQueryGetAllUsers = () => checkSchema({
+    page: {
+        notEmpty: {errorMessage: 'Page is required'},
+        toInt: true,
+        isInt: {options: {min: 1}, errorMessage: 'Page must be an integer'},
+    },
+    limit: {
+        notEmpty: {errorMessage: 'Limit is required'},
+        toInt: true,
+        isInt: {options: {min: 1, max: 100}, errorMessage: 'Limit must be an integer'},
+    }
+}, ['query'])

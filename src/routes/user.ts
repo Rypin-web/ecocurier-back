@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {register} from "@controllers/user/register";
-import {validateLoginFields, validateRegisterFields} from "@config/validations/user";
+import {validateLoginFields, validateQueryGetAllUsers, validateRegisterFields} from "@config/validations/user";
 import {login} from "@controllers/user/login";
 import {getMe} from "@controllers/user/getMe";
 import {requireAuthorization} from "@/middlewares/requireAuthorization";
@@ -12,6 +12,6 @@ var userRouter = Router()
 userRouter.post('/register', validateRegisterFields(), register)
 userRouter.post('/login', validateLoginFields(), login)
 userRouter.get('/', requireAuthorization, getMe)
-userRouter.get('/all', requireAuthorization, requireAdministrator, getAll)
+userRouter.get('/all', requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), getAll)
 
 export {userRouter}
