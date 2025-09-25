@@ -1,28 +1,32 @@
 export class ApiErrors extends Error {
     public readonly msg: string
-    public  readonly status: number
-    public  readonly  errors: object | null
+    public readonly status: number
+    public readonly errors: object | null
 
-    constructor(statusCode:number = 500, message?:string, errors?:object) {
+    constructor(statusCode: number = 500, message?: string, errors?: object) {
         super(message)
         this.msg = message || 'Unknown error'
         this.status = statusCode
         this.errors = errors || null
     }
 
-    static validationFields (msg?:string, errors?:object,) {
+    static validationFields(msg?: string, errors?: object) {
         return new ApiErrors(400, msg, errors)
     }
 
-    static userAlreadyCreated (msg?:string, errors?:object,) {
+    static requireAdministrator(msg?: string, errors?: object) {
+        return new ApiErrors(403, msg, errors)
+    }
+
+    static userAlreadyCreated(msg?: string, errors?: object) {
         return new ApiErrors(409, msg, errors)
     }
 
-    static userNotFound (msg?:string, errors?:object,) {
+    static userNotFound(msg?: string, errors?: object) {
         return new ApiErrors(404, msg, errors)
     }
 
-    static invalidCredentials (msg?:string, errors?:object){
+    static invalidCredentials(msg?: string, errors?: object) {
         return new ApiErrors(401, msg, errors)
     }
 }
