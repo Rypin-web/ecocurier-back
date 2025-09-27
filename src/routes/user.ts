@@ -6,12 +6,13 @@ import {getMe} from "@controllers/user/getMe";
 import {requireAuthorization} from "@/middlewares/requireAuthorization";
 import {requireAdministrator} from "@/middlewares/requireAdministrator";
 import {getAll} from "@controllers/user/getAll";
+import {ENDPOINTS} from "@config/server";
 
 var userRouter = Router()
 
-userRouter.post('/register', validateRegisterFields(), register)
-userRouter.post('/login', validateLoginFields(), login)
-userRouter.get('/', requireAuthorization, getMe)
-userRouter.get('/all', requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), getAll)
+userRouter.post(ENDPOINTS._.user.register, validateRegisterFields(), register)
+userRouter.post(ENDPOINTS._.user.login, validateLoginFields(), login)
+userRouter.get(ENDPOINTS._.user.def, requireAuthorization, getMe)
+userRouter.get(ENDPOINTS._.user.all, requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), getAll)
 
 export {userRouter}

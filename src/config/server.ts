@@ -20,9 +20,13 @@ export var CORS = {
 
 export var ENDPOINTS = {
     baseUrl: '/api',
-    endpoints: {
-        user: '/user',
-        auth: '/auth',
-        products: '/prod'
+    _: {
+        user: {
+            _: '/user',
+            def:'/',
+            register: '/register',
+            login: '/login',
+            all: '/all',
+        },
     }
 }
