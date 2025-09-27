@@ -10,7 +10,7 @@ import {User} from "@models/User";
 
 export class Session extends Model<InferAttributes<Session>, InferCreationAttributes<Session>> {
     declare id: CreationOptional<string>
-    declare userId: ForeignKey<User['id']> | null
+    declare userId: ForeignKey<User['id']>
     declare refreshToken: string | null
     declare fingerprint: string
     declare createdAt: CreationOptional<Date>
