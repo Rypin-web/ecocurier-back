@@ -18,8 +18,8 @@ export class Categories extends Model<InferAttributes<Categories>, InferCreation
 
 Categories.init({
     id:{
-        type: DataTypes.INTEGER.UNSIGNED,
-        autoIncrement:true,
+        type:DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey:true
     },
     name:{

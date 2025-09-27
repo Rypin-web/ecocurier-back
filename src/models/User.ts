@@ -7,7 +7,6 @@ import {
 } from "sequelize";
 import {sequelize} from "@config/database";
 
-
 export class User extends Model<InferAttributes<User>,InferCreationAttributes<User>> {
     declare id: CreationOptional<number>;
     declare role: 'user' | 'admin';
@@ -22,9 +21,9 @@ export class User extends Model<InferAttributes<User>,InferCreationAttributes<Us
 
 User.init({
     id:{
-        type:DataTypes.INTEGER.UNSIGNED,
+        type:DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey:true,
-        autoIncrement: true,
     },
     role: {
         type: DataTypes.ENUM('user', 'admin'),
