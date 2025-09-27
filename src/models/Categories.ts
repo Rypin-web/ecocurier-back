@@ -8,7 +8,7 @@ import {
 import {sequelize} from "@config/database";
 
 export class Categories extends Model<InferAttributes<Categories>, InferCreationAttributes<Categories>> {
-    declare id: CreationOptional<number>
+    declare id: CreationOptional<string>
     declare name: string
     declare description: CreationOptional<string>
     declare image: CreationOptional<string>

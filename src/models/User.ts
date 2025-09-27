@@ -8,7 +8,7 @@ import {
 import {sequelize} from "@config/database";
 
 export class User extends Model<InferAttributes<User>,InferCreationAttributes<User>> {
-    declare id: CreationOptional<number>;
+    declare id: CreationOptional<string>;
     declare role: 'user' | 'admin';
     declare first_name: string;
     declare last_name: CreationOptional<string>;
