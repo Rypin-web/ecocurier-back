@@ -4,7 +4,7 @@ import {ApiErrors} from "@utils/ApiErrors";
 import {User} from "@models/User";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken'
-import {SECRET_KEY} from "@config/server";
+import {JWT_INFO} from "@config/server";
 
 export async function login(req: Request, res: Response, next: NextFunction) {
     try {
@@ -16,7 +16,11 @@ export async function login(req: Request, res: Response, next: NextFunction) {
             const isPasswordValid = await bcrypt.compare(req.body.password, user.dataValues.password)
             if (!isPasswordValid) throw ApiErrors.invalidCredentials('Invalid credentials')
 
-            const token = jwt.sign({...user.dataValues, password: undefined}, SECRET_KEY, {expiresIn: '30d'})
+            const token = jwt.sign(
+                {...user.dataValues, password: undefined},
+                JWT_INFO.SECRET_KEY_SESSION,
+                {expiresIn: JWT_INFO.SESSION_EXPIRES_IN}
+            )
             return res.status(200).send({
                 msg: 'Success login. Hello ' + user.dataValues.first_name,
                 data: {
