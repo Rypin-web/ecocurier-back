@@ -13,7 +13,6 @@ export class Session extends Model<InferAttributes<Session>, InferCreationAttrib
     declare userId: ForeignKey<User['id']> | null
     declare refreshToken: string | null
     declare fingerprint: string
-    declare isActivated: CreationOptional<boolean>
     declare createdAt: CreationOptional<Date>
     declare updatedAt: CreationOptional<Date>
 }
@@ -41,10 +40,6 @@ Session.init({
     fingerprint: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    isActivated: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
