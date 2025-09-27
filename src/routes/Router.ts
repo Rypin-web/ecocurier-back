@@ -4,6 +4,6 @@ import {ENDPOINTS} from "@config/server";
 
 var router = Router()
 
-router.use(ENDPOINTS._.user._, userRouter)
+router.use(ENDPOINTS.user.base, userRouter)
 
 export {router}

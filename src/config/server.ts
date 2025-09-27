@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import * as process from "node:process";
+
 dotenv.config()
 
 export var PORT = process.env.PORT || 5600
@@ -20,13 +21,13 @@ export var CORS = {
 
 export var ENDPOINTS = {
     baseUrl: '/api',
-    _: {
-        user: {
-            _: '/user',
-            def:'/',
-            register: '/register',
-            login: '/login',
-            all: '/all',
-        },
-    }
+    user: {
+        base: '/user',
+        def: '/',
+        register: '/register',
+        login: '/login',
+        all: '/all',
+        logout:'/logout',
+        refresh:'/refresh',
+    },
 }

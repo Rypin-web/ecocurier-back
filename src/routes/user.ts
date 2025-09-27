@@ -10,9 +10,9 @@ import {ENDPOINTS} from "@config/server";
 
 var userRouter = Router()
 
-userRouter.post(ENDPOINTS._.user.register, validateRegisterFields(), register)
-userRouter.post(ENDPOINTS._.user.login, validateLoginFields(), login)
-userRouter.get(ENDPOINTS._.user.def, requireAuthorization, getMe)
-userRouter.get(ENDPOINTS._.user.all, requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), getAll)
+userRouter.post(ENDPOINTS.user.register, validateRegisterFields(), register)
+userRouter.post(ENDPOINTS.user.login, validateLoginFields(), login)
+userRouter.get(ENDPOINTS.user.def, requireAuthorization, getMe)
+userRouter.get(ENDPOINTS.user.all, requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), getAll)
 
 export {userRouter}
