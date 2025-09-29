@@ -29,7 +29,7 @@ Session.init({
             model: User,
             key: 'id'
         },
-        allowNull: true,
+        allowNull: false,
         onDelete: 'CASCADE',
         field:'user_id'
     },
