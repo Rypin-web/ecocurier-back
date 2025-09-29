@@ -5,7 +5,7 @@ import {User} from "@models/User";
 
 export async function getMe(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
-        const userFromDb = await User.findByPk(req.user.id)
+        const userFromDb = await User.findByPk(req.user?.sep)
         if (!userFromDb) throw ApiErrors.userNotFound('User not found')
 
         return res.status(200).send({

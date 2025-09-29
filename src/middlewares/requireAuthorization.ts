@@ -1,10 +1,14 @@
 import {NextFunction, Request, Response} from "express";
-import jwt from "jsonwebtoken";
-import {SECRET_KEY} from "@config/server";
+import jwt, {JwtPayload} from "jsonwebtoken";
+import {JWT_INFO} from "@config/server";
 import {ApiErrors} from "@utils/ApiErrors";
 import {extractTokenFromHeader} from "@utils/extractTokenFromHeader";
 
-export type RequestWithUser = Request & { user?: any };
+export type SessionClaims = {
+    sep: string,
+    role: 'user' | 'admin'
+} & JwtPayload
+export type RequestWithUser = Request & { user?: SessionClaims };
 
 export function requireAuthorization(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
@@ -14,7 +18,7 @@ export function requireAuthorization(req: RequestWithUser, res: Response, next: 
         }
 
         try {
-            const decoded = jwt.verify(token, SECRET_KEY);
+            const decoded = jwt.verify(token, JWT_INFO.SECRET_KEY_SESSION) as SessionClaims;
             req.user = decoded;
             return next();
         } catch (err: any) {
