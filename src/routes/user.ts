@@ -19,7 +19,7 @@ userRouter.get(ENDPOINTS.user.refresh, refresh)
 userRouter.get(ENDPOINTS.user.all, requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), getAll)
 userRouter.post(ENDPOINTS.user.register, validateRegisterFields(), register)
 userRouter.post(ENDPOINTS.user.login, validateLoginFields(), login)
-userRouter.post(ENDPOINTS.user.updateMe, requireAuthorization, validateUpdateMeFields(), updateMe)
+userRouter.put(ENDPOINTS.user.updateMe, requireAuthorization, validateUpdateMeFields(), updateMe)
 userRouter.delete(ENDPOINTS.user.logout, requireAuthorization, logout)
 
 export {userRouter}
