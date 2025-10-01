@@ -71,3 +71,39 @@ export var validateQueryGetAllUsers = () => checkSchema({
         isInt: {options: {min: 1, max: 100}, errorMessage: 'Limit must be an integer'},
     }
 }, ['query'])
+
+export var validateUpdateMeFields = () => checkSchema({
+    first_name: {
+        optional: true,
+        isLength: {
+            options: {min: 3, max: 128},
+            errorMessage: 'First name must be between 3 and 128 characters long'
+        }
+    },
+    last_name: {
+        optional: true,
+        isLength: {
+            options: {min: 3, max: 128},
+            errorMessage: 'Last name must be between 3 and 128 characters long'
+        }
+    },
+    email: {
+        optional: true,
+        isEmail: {errorMessage: 'Invalid email'},
+        isLength: {
+            options: {min: 6, max: 128},
+            errorMessage: 'Email must be between 6 and 128 characters long'
+        }
+    },
+    phone: {
+        optional: true,
+        isLength: {
+            options: {min: 8, max: 32},
+            errorMessage: 'Phone must be between 8 and 32 characters long'
+        },
+        isMobilePhone: {
+            options: ['ru-RU'],
+            errorMessage: 'Invalid phone. Phone may be in ru-RU format'
+        }
+    }
+})

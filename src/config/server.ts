@@ -29,5 +29,6 @@ export var ENDPOINTS = {
         all: '/all',
         logout:'/logout',
         refresh:'/refresh',
+        updateMe: '/update',
     },
 }

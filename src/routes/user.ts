@@ -7,6 +7,8 @@ import {requireAuthorization} from "@/middlewares/requireAuthorization";
 import {requireAdministrator} from "@/middlewares/requireAdministrator";
 import {getAll} from "@controllers/user/getAll";
 import {ENDPOINTS} from "@config/server";
+import {updateMe} from "@controllers/user/updateMe";
+import {validateUpdateMeFields} from "@config/validations/user";
 import {refresh} from "@controllers/user/refresh";
 
 var userRouter = Router()
@@ -15,6 +17,7 @@ userRouter.post(ENDPOINTS.user.register, validateRegisterFields(), register)
 userRouter.post(ENDPOINTS.user.login, validateLoginFields(), login)
 userRouter.get(ENDPOINTS.user.def, requireAuthorization, getMe)
 userRouter.get(ENDPOINTS.user.refresh, refresh)
+userRouter.post(ENDPOINTS.user.updateMe, requireAuthorization, validateUpdateMeFields(), updateMe)
 userRouter.get(ENDPOINTS.user.all, requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), getAll)
 
 export {userRouter}
