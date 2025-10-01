@@ -14,7 +14,7 @@ var userRouter = Router()
 userRouter.post(ENDPOINTS.user.register, validateRegisterFields(), register)
 userRouter.post(ENDPOINTS.user.login, validateLoginFields(), login)
 userRouter.get(ENDPOINTS.user.def, requireAuthorization, getMe)
-userRouter.get(ENDPOINTS.user.refresh, requireAuthorization, refresh)
+userRouter.get(ENDPOINTS.user.refresh, refresh)
 userRouter.get(ENDPOINTS.user.all, requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), getAll)
 
 export {userRouter}
