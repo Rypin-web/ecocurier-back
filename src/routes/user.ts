@@ -10,14 +10,16 @@ import {ENDPOINTS} from "@config/server";
 import {updateMe} from "@controllers/user/updateMe";
 import {validateUpdateMeFields} from "@config/validations/user";
 import {refresh} from "@controllers/user/refresh";
+import {logout} from "@controllers/user/logout";
 
 var userRouter = Router()
 
-userRouter.post(ENDPOINTS.user.register, validateRegisterFields(), register)
-userRouter.post(ENDPOINTS.user.login, validateLoginFields(), login)
 userRouter.get(ENDPOINTS.user.def, requireAuthorization, getMe)
 userRouter.get(ENDPOINTS.user.refresh, refresh)
-userRouter.post(ENDPOINTS.user.updateMe, requireAuthorization, validateUpdateMeFields(), updateMe)
 userRouter.get(ENDPOINTS.user.all, requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), getAll)
+userRouter.post(ENDPOINTS.user.register, validateRegisterFields(), register)
+userRouter.post(ENDPOINTS.user.login, validateLoginFields(), login)
+userRouter.post(ENDPOINTS.user.updateMe, requireAuthorization, validateUpdateMeFields(), updateMe)
+userRouter.delete(ENDPOINTS.user.logout, requireAuthorization, logout)
 
 export {userRouter}
