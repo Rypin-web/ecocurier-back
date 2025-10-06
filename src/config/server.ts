@@ -30,5 +30,6 @@ export var ENDPOINTS = {
         logout:'/logout',
         refresh:'/refresh',
         updateMe: '/update',
+        updatePerson: '/:id/update'
     },
 }

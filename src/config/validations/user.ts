@@ -73,14 +73,14 @@ export var validateQueryGetAllUsers = () => checkSchema({
 }, ['query'])
 
 export var validateUpdateMeFields = () => checkSchema({
-    first_name: {
+    firstName: {
         optional: true,
         isLength: {
             options: {min: 3, max: 128},
             errorMessage: 'First name must be between 3 and 128 characters long'
         }
     },
-    last_name: {
+    lastName: {
         optional: true,
         isLength: {
             options: {min: 3, max: 128},
@@ -105,5 +105,59 @@ export var validateUpdateMeFields = () => checkSchema({
             options: ['ru-RU'],
             errorMessage: 'Invalid phone. Phone may be in ru-RU format'
         }
+    }
+})
+
+export var validateUpdatePersonFields = () => checkSchema({
+    id: {
+        in: 'params',
+        notEmpty: true,
+        isUUID: true,
+        errorMessage: 'User id is required',
+    },
+    role: {
+        optional: true,
+        isIn: {
+            options: ['user', 'admin'],
+            errorMessage: 'Invalid role'
+        },
+        in: 'body'
+    },
+    firstName: {
+        optional: true,
+        isLength: {
+            options: {min: 3, max: 128},
+            errorMessage: 'First name must be between 3 and 128 characters long'
+        },
+        in: 'body'
+    },
+    lastName: {
+        optional: true,
+        isLength: {
+            options: {min: 3, max: 128},
+            errorMessage: 'Last name must be between 3 and 128 characters long'
+        },
+        in: 'body'
+    },
+    email: {
+        optional: true,
+        isEmail: {errorMessage: 'Invalid email'},
+        isLength: {
+            options: {min: 6, max: 128},
+            errorMessage: 'Email must be between 6 and 128 characters long'
+        },
+        in: 'body'
+    },
+    phone: {
+        optional: true,
+        isLength: {
+            options: {min: 8, max: 32},
+            errorMessage: 'Phone must be between 8 and 32 characters long'
+        },
+        isMobilePhone: {
+            options: ['ru-RU'],
+            errorMessage: 'Invalid phone. Phone may be in ru-RU format'
+        },
+        in: 'body'
     }
 })
