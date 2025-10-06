@@ -3,6 +3,7 @@ import {validationResult} from "express-validator";
 import {ApiErrors} from "@utils/ApiErrors";
 import {RequestWithUser} from "@/middlewares/requireAuthorization";
 import {User} from "@models/User";
+import {getUpdateData} from "@utils/getUpdateData";
 
 export async function updateMe(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
@@ -18,13 +19,7 @@ export async function updateMe(req: RequestWithUser, res: Response, next: NextFu
                 throw ApiErrors.userNotFound('User not found');
             }
 
-            const {first_name, last_name, email, phone} = req.body;
-            const updateData: any = {};
-            if (first_name !== undefined) updateData.first_name = first_name;
-            if (last_name !== undefined) updateData.last_name = last_name;
-            if (email !== undefined) updateData.email = email;
-            if (phone !== undefined) updateData.phone = phone;
-
+            const updateData: any = getUpdateData(req.body, ['first_name', 'last_name', 'email', 'phone']);
             await user.update(updateData);
             return res.status(200).send({
                 msg: 'User updated successfully',
