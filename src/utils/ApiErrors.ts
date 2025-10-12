@@ -29,6 +29,10 @@ export class ApiErrors extends Error {
     static invalidCredentials(msg?: string, errors?: object) {
         return new ApiErrors(401, msg, errors)
     }
+
+    static alreadyExist(msg?: string, errors?: object) {
+        return new ApiErrors(409, msg, errors)
+    }
 }
 
 export type ApiErrorsType = {

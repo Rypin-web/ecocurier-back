@@ -12,7 +12,7 @@ export async function create(req: Request, res: Response, next: NextFunction) {
             const image = file ? file.filename : undefined
 
             const exists = await Categories.findOne({where: {name}})
-            if (exists) throw ApiErrors.categoryAlreadyExist('Category already exists')
+            if (exists) throw ApiErrors.alreadyExist('Category already exists')
 
             const payload: Partial<Categories> = {
                 name,
