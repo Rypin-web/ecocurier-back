@@ -27,5 +27,5 @@ userRouter.post(ENDPOINTS.user.register, validateRegisterFields(), register)
 userRouter.post(ENDPOINTS.user.login, validateLoginFields(), login)
 userRouter.put(ENDPOINTS.user.updateMe, requireAuthorization, validateUpdateMeFields(), updateMe)
 userRouter.delete(ENDPOINTS.user.logout, requireAuthorization, logout)
-userRouter.put(ENDPOINTS.user.updatePerson, requireAuthorization, validateUpdatePersonFields(), updatePerson)
+userRouter.put(ENDPOINTS.user.updatePerson, requireAuthorization, requireAdministrator, validateUpdatePersonFields(), updatePerson)
 export {userRouter}
