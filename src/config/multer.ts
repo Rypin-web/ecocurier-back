@@ -12,11 +12,9 @@ var storage = multer.diskStorage({
 
 function fileFilter(req, file, cb) {
     if (types.includes(file.mimetype)) {
-        cb(null, true)
-    } else {
-        cb(null, false)
+        return cb(null, true)
     }
-    cb(new Error('File type not supported'))
+    return cb(new Error('File type not supported'), false)
 }
 
 var upload = multer({storage, fileFilter})
