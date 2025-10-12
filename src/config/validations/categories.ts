@@ -17,5 +17,4 @@ export var validateCreateCategoryFields = () => checkSchema({
         },
         trim: true,
     },
-    // imae загружается через multer: поле файла "image"; тело не должно содержать строковое поле image
 }, ['body'])
