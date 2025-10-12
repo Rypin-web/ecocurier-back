@@ -32,4 +32,8 @@ export var ENDPOINTS = {
         updateMe: '/update',
         updatePerson: '/:id/update'
     },
+    categories: {
+        base: '/categories',
+        def: '/',
+    },
 }
