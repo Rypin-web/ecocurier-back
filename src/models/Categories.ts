@@ -29,6 +29,7 @@ Categories.init({
     },
     description:{
         type:DataTypes.TEXT,
+        allowNull: true
     },
     image:{
         type: DataTypes.STRING(128),

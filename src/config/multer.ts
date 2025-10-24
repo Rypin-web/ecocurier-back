@@ -1,20 +1,24 @@
-import multer from "multer";
+import multer, {FileFilterCallback} from "multer";
+import {Request} from "express";
+import * as path from "node:path";
 
 var types = ['image/png', 'image/jpeg', 'image/jpg']
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/')
+        cb(null,  'uploads/')
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname + '-' + Date.now() + '-' + Math.random() * 1e9)
+        const [filename, filetype] = file.originalname.split('.')
+        cb(null, filename + '-' + Date.now() + '-' + Math.random() * 1e9 + '.' + filetype)
     }
 })
 
-function fileFilter(req, file, cb) {
-    if (types.includes(file.mimetype)) {
+function fileFilter(req: Request, file: Express.Multer.File, cb: FileFilterCallback) {
+    console.log(file)
+    if (types.includes(file.originalname.split('.').join('/'))) {
         return cb(null, true)
-    }
-    return cb(new Error('File type not supported'), false)
+    } else
+        return cb(null, false)
 }
 
 var upload = multer({storage, fileFilter})
