@@ -4,10 +4,12 @@ import {create} from "@controllers/categories/create";
 import {requireAuthorization} from "@/middlewares/requireAuthorization";
 import {requireAdministrator} from "@/middlewares/requireAdministrator";
 import {upload} from "@config/multer";
-import {validateCreateCategoryFields} from "@config/validations/categories";
+import {validateCreateCategoryFields, validateGetAllCategoriesFields} from "@config/validations/categories";
+import {getAll} from "@controllers/categories/getAll";
 
 var categoriesRouter = Router()
 
+categoriesRouter.get(ENDPOINTS.categories.def, requireAuthorization, validateGetAllCategoriesFields(), getAll)
 categoriesRouter.post(
     ENDPOINTS.categories.def,
     requireAuthorization,

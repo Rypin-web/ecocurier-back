@@ -18,3 +18,20 @@ export var validateCreateCategoryFields = () => checkSchema({
         trim: true,
     },
 }, ['body'])
+
+export var validateGetAllCategoriesFields = () => checkSchema({
+    page: {
+        notEmpty: true,
+        isInt: true,
+        toInt: true,
+        isLength: {options: {min: 1, max: Infinity}},
+        errorMessage: 'Page must be a positive integer'
+    },
+    limit: {
+        notEmpty: true,
+        isInt: true,
+        toInt: true,
+        isLength: {options: {min: 1, max: 20}},
+        errorMessage: 'Limit must be a positive integer between 1 and 100'
+    }
+}, ['query'])
