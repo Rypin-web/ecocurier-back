@@ -13,7 +13,7 @@ Lightweight REST API built with Express + Sequelize + MySQL and TypeScript, feat
 ## ✨ Features
 - **Authentication/Authorization** (JWT, roles)
 - **Users CRUD** (validated via `express-validator`)
-- **Categories**: create with image upload (`multer.single('image')`)
+- **Categories**: createCategory with image upload (`multer.single('image')`)
 - **Security**: `helmet`, `cors`, cookies
 
 ## ✅ Requirements

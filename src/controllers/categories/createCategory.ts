@@ -3,7 +3,7 @@ import {validationResult} from "express-validator";
 import {Categories} from "@models/Categories";
 import {ApiErrors} from "@utils/ApiErrors";
 
-export async function create(req: Request, res: Response, next: NextFunction) {
+export async function createCategory(req: Request, res: Response, next: NextFunction) {
     try {
         const result = validationResult(req)
         if (result.isEmpty()) {

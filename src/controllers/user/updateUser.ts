@@ -5,7 +5,7 @@ import {ApiErrors} from "@utils/ApiErrors";
 import {User} from "@models/User";
 import {getUpdateData} from "@utils/getUpdateData";
 
-export async function updatePerson(req: RequestWithUser, res: Response, next: NextFunction) {
+export async function updateUser(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
         const result = validationResult(req)
         if (result.isEmpty()) {

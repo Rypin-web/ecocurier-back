@@ -4,7 +4,7 @@ import {ApiErrors} from "@utils/ApiErrors";
 import {RequestWithUser} from "@/middlewares/requireAuthorization";
 import {User} from "@models/User";
 
-export async function getAll(req: RequestWithUser, res: Response, next: NextFunction) {
+export async function getAllUsers(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
         const result = validationResult(req)
         if (result.isEmpty()) {

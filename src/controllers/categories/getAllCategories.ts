@@ -4,7 +4,7 @@ import {validationResult} from "express-validator";
 import {ApiErrors} from "@utils/ApiErrors";
 import {Categories} from "@models/Categories";
 
-export async function getAll (req:RequestWithUser, res:Response, next:NextFunction) {
+export async function getAllCategories (req:RequestWithUser, res:Response, next:NextFunction) {
     try{
         const result = validationResult(req)
 
