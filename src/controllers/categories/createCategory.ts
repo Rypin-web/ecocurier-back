@@ -2,11 +2,13 @@ import {NextFunction, Request, Response} from "express";
 import {validationResult} from "express-validator";
 import {Categories} from "@models/Categories";
 import {ApiErrors} from "@utils/ApiErrors";
+import {convertToWebp} from "@utils/convertToWebp";
 
 export async function createCategory(req: Request, res: Response, next: NextFunction) {
     try {
         const result = validationResult(req)
         if (result.isEmpty()) {
+            await convertToWebp(req.file)
             const {name, description} = req.body
             const file = req.file as Express.Multer.File | undefined
             const image = file ? file.filename : undefined
