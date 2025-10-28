@@ -19,7 +19,7 @@ export async function refresh(req: Request, res: Response, next: NextFunction) {
             throw ApiErrors.invalidCredentials('Invalid refresh or fingerprint. Try to login again')
         }
         const user = await User.findByPk(session.userId)
-        if (!user) throw ApiErrors.userNotFound('User not found')
+        if (!user) throw ApiErrors.NotFound('User not found')
         try {
             const refreshResult = jwt.verify(refreshToken, JWT_INFO.SECRET_KEY_REFRESH)
             const sessionToken = jwt.sign(

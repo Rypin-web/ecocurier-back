@@ -22,7 +22,7 @@ export class ApiErrors extends Error {
         return new ApiErrors(409, msg, errors)
     }
 
-    static userNotFound(msg?: string, errors?: object) {
+    static NotFound(msg?: string, errors?: object) {
         return new ApiErrors(404, msg, errors)
     }
 

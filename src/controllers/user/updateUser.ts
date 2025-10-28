@@ -12,7 +12,7 @@ export async function updateUser(req: RequestWithUser, res: Response, next: Next
             const userId = req.params.id
             if (!userId) throw ApiErrors.invalidCredentials('suerId is required')
             const user = await User.findByPk(userId)
-            if (!user) throw ApiErrors.userNotFound('Not found')
+            if (!user) throw ApiErrors.NotFound('Not found')
 
             let updateData: any = getUpdateData(req.body, ['role', 'first_name', 'last_name', 'email', 'phone'])
             await user.update(updateData)

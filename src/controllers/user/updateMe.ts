@@ -16,7 +16,7 @@ export async function updateMe(req: RequestWithUser, res: Response, next: NextFu
 
             const user = await User.findByPk(userId);
             if (!user) {
-                throw ApiErrors.userNotFound('User not found');
+                throw ApiErrors.NotFound('User not found');
             }
 
             const updateData: any = getUpdateData(req.body, ['first_name', 'last_name', 'email', 'phone']);

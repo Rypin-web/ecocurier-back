@@ -13,7 +13,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
         const result = validationResult(req)
         if (result.isEmpty()) {
             const user = await User.findOne({where: {email: req.body.email}})
-            if (!user) throw ApiErrors.userNotFound('User not found')
+            if (!user) throw ApiErrors.NotFound('User not found')
             const isPasswordValid = await bcrypt.compare(req.body.password, user.dataValues.password)
             if (!isPasswordValid) throw ApiErrors.invalidCredentials('Invalid credentials')
 

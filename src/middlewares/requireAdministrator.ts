@@ -4,7 +4,7 @@ import {ApiErrors} from "@utils/ApiErrors";
 
 export async function requireAdministrator(req: RequestWithUser, _res: Response, next: NextFunction) {
     try {
-        if (!req.user) throw ApiErrors.userNotFound('Unauthorized: user not found')
+        if (!req.user) throw ApiErrors.NotFound('Unauthorized: user not found')
         const {role} = req.user
         if (!role || role !== 'admin') throw ApiErrors.requireAdministrator('Forbidden: require administrator')
 
