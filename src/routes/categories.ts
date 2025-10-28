@@ -6,11 +6,13 @@ import {requireAdministrator} from "@/middlewares/requireAdministrator";
 import {upload} from "@config/multer";
 import {
     validateCreateCategoryFields,
+    validateDeleteCategoryFields,
     validateGetAllCategoriesFields,
     validateUpdateCategoryFields
 } from "@config/validations/categories";
 import {getAllCategories} from "@controllers/categories/getAllCategories";
 import {updateCategory} from "@controllers/categories/updateCategory";
+import {deleteCategory} from "@controllers/categories/deleteCategory";
 
 var categoriesRouter = Router()
 
@@ -30,6 +32,13 @@ categoriesRouter.put(
     upload.single('image'),
     validateUpdateCategoryFields(),
     updateCategory
+)
+categoriesRouter.delete(
+    ENDPOINTS.categories.update,
+    requireAuthorization,
+    requireAdministrator,
+    validateDeleteCategoryFields(),
+    deleteCategory
 )
 
 export {categoriesRouter}
