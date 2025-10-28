@@ -35,5 +35,6 @@ export var ENDPOINTS = {
     categories: {
         base: '/categories',
         def: '/',
+        update:'/:id'
     },
 }
