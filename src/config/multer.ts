@@ -1,11 +1,11 @@
 import multer, {FileFilterCallback} from "multer";
 import {Request} from "express";
-import * as path from "node:path";
+import {imagePath} from "@config/server";
 
 var types = ['image/png', 'image/jpeg', 'image/jpg']
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null,  'uploads/')
+        cb(null, imagePath)
     },
     filename: function (req, file, cb) {
         const filenameArray = file.originalname.split('.')

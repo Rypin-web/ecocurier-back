@@ -12,6 +12,7 @@ export var JWT_INFO = {
     SESSION_EXPIRES_IN: 180, // 3m
     REFRESH_EXPIRES_IN: 1209600, // 14d
 }
+export var imagePath = 'uploads/'
 
 export var CORS = {
     origin: API_URL,
