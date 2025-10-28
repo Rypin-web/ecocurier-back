@@ -62,3 +62,12 @@ export var validateUpdateCategoryFields = () => checkSchema({
         errorMessage: 'Category id is required',
     }
 })
+
+export var validateDeleteCategoryFields = ()=> checkSchema({
+    id: {
+        in: 'params',
+        notEmpty: true,
+        isUUID: true,
+        errorMessage: 'Category id is required',
+    }
+})
