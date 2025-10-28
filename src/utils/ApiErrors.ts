@@ -33,6 +33,10 @@ export class ApiErrors extends Error {
     static alreadyExist(msg?: string, errors?: object) {
         return new ApiErrors(409, msg, errors)
     }
+
+    static serverError(msg?: string, errors?: object) {
+        return new ApiErrors(500, msg, errors)
+    }
 }
 
 export type ApiErrorsType = {
