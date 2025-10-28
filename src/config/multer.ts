@@ -10,7 +10,7 @@ var storage = multer.diskStorage({
     filename: function (req, file, cb) {
         const filenameArray = file.originalname.split('.')
         const filetype = filenameArray.pop()
-        cb(null, filenameArray.join('.') + '-' + Date.now() + '-' + Math.round(Math.random() * 1e9) + '.' + filetype)
+        cb(null, filenameArray.join('.') + '-' + Date.now() + '-' + Math.floor(Math.random() * 1e9) + '.' + filetype)
     }
 })
 

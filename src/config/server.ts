@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import * as process from "node:process";
+import * as path from "node:path";
 
 dotenv.config()
 
@@ -12,7 +13,8 @@ export var JWT_INFO = {
     SESSION_EXPIRES_IN: 180, // 3m
     REFRESH_EXPIRES_IN: 1209600, // 14d
 }
-export var imagePath = 'uploads/'
+export var imagePath = 'uploads'
+export var rootPath = path.resolve()
 
 export var CORS = {
     origin: API_URL,
