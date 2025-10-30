@@ -2,7 +2,7 @@ import {RequestWithUser} from "@/middlewares/requireAuthorization";
 import {NextFunction, Response} from "express";
 import {ApiErrors} from "@utils/ApiErrors";
 import {User} from "@models/User";
-import {getUpdateData} from "@utils/getUpdateData";
+import {extractBodyData} from "@utils/extractBodyData";
 
 export async function updateUser(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
@@ -11,7 +11,7 @@ export async function updateUser(req: RequestWithUser, res: Response, next: Next
         const user = await User.findByPk(userId)
         if (!user) throw ApiErrors.NotFound('Not found')
 
-        let payload = getUpdateData<User>(req.body, ['role', 'first_name', 'last_name', 'email', 'phone'])
+        let payload = extractBodyData<User>(req.body, ['role', 'first_name', 'last_name', 'email', 'phone'])
         await user.update(payload)
         return res.status(201).send({
             msg: 'success update',
