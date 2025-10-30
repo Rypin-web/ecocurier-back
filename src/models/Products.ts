@@ -49,7 +49,9 @@ Products.init({
         references: {
             model: Categories,
             key: 'id'
-        }
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
