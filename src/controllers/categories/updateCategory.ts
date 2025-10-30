@@ -1,7 +1,7 @@
 import {RequestWithUser} from "@/middlewares/requireAuthorization";
 import {NextFunction, Response} from "express";
 import {ApiErrors} from "@utils/ApiErrors";
-import {getUpdateData} from "@utils/getUpdateData";
+import {extractBodyData} from "@utils/extractBodyData";
 import {Categories} from "@models/Categories";
 import {convertToWebp} from "@utils/convertToWebp";
 
@@ -10,7 +10,7 @@ export async function updateCategory(req: RequestWithUser, res: Response, next: 
         await convertToWebp(req.file)
         const file = req.file
         const image = file ? file.originalname : undefined
-        const payload = getUpdateData<Categories>(req.body, ['name', 'description', 'image'])
+        const payload = extractBodyData<Categories>(req.body, ['name', 'description', 'image'])
         payload.image = image
         const category = await Categories.findByPk(req.params.id)
         if (!category) throw ApiErrors.NotFound('Category not found')
