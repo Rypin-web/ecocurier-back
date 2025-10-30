@@ -40,4 +40,9 @@ export var ENDPOINTS = {
         def: '/',
         update:'/:id'
     },
+    products:{
+        base:'/products',
+        def:'/',
+        update:'/:id'
+    }
 }

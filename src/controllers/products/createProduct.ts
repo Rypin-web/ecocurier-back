@@ -6,7 +6,7 @@ import {convertToWebp} from "@utils/convertToWebp";
 
 export async function createProduct(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
-        const payload = extractBodyData<Products>(req.body, ['title', 'description', 'price'])
+        const payload = extractBodyData<Products>(req.body, ['title', 'description', 'price', "category_id"])
         await convertToWebp(req.file)
         if (req.file) payload.image = req.file.filename
 
