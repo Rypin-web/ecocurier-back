@@ -13,16 +13,24 @@ import {
 import {getAllCategories} from "@controllers/categories/getAllCategories";
 import {updateCategory} from "@controllers/categories/updateCategory";
 import {deleteCategory} from "@controllers/categories/deleteCategory";
+import {validateFields} from "@/middlewares/validateFields.middleware";
 
 var categoriesRouter = Router()
 
-categoriesRouter.get(ENDPOINTS.categories.def, requireAuthorization, validateGetAllCategoriesFields(), getAllCategories)
+categoriesRouter.get(
+    ENDPOINTS.categories.def,
+    requireAuthorization,
+    validateGetAllCategoriesFields(),
+    validateFields,
+    getAllCategories
+)
 categoriesRouter.post(
     ENDPOINTS.categories.def,
     requireAuthorization,
     requireAdministrator,
     upload.single('image'),
     validateCreateCategoryFields(),
+    validateFields,
     createCategory
 )
 categoriesRouter.put(
@@ -31,6 +39,7 @@ categoriesRouter.put(
     requireAdministrator,
     upload.single('image'),
     validateUpdateCategoryFields(),
+    validateFields,
     updateCategory
 )
 categoriesRouter.delete(
@@ -38,6 +47,7 @@ categoriesRouter.delete(
     requireAuthorization,
     requireAdministrator,
     validateDeleteCategoryFields(),
+    validateFields,
     deleteCategory
 )
 
