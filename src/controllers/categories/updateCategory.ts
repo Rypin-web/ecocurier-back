@@ -4,11 +4,13 @@ import {validationResult} from "express-validator";
 import {ApiErrors} from "@utils/ApiErrors";
 import {getUpdateData} from "@utils/getUpdateData";
 import {Categories} from "@models/Categories";
+import {convertToWebp} from "@utils/convertToWebp";
 
 export async function updateCategory (req: RequestWithUser, res: Response, next: NextFunction) {
     try{
         const result = validationResult(req)
         if(result.isEmpty()){
+            await convertToWebp(req.file)
             const file = req.file
             const image = file ? file.originalname : undefined
             const payload = getUpdateData(req.body, ['name', 'description', 'image'])
