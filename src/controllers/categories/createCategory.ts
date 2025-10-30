@@ -2,21 +2,17 @@ import {NextFunction, Request, Response} from "express";
 import {Categories} from "@models/Categories";
 import {ApiErrors} from "@utils/ApiErrors";
 import {convertToWebp} from "@utils/convertToWebp";
+import {getUpdateData} from "@utils/getUpdateData";
 
 export async function createCategory(req: Request, res: Response, next: NextFunction) {
     try {
         await convertToWebp(req.file)
-        const {name, description} = req.body
+        const payload = getUpdateData<Categories>(req.body, ['name', 'description'])
         const file = req.file as Express.Multer.File | undefined
         const image = file ? file.filename : undefined
 
-        const exists = await Categories.findOne({where: {name}})
+        const exists = await Categories.findOne({where: {name: payload.name}})
         if (exists) throw ApiErrors.alreadyExist('Category already exists')
-
-        const payload: Partial<Categories> = {
-            name,
-        }
-        if (description) payload.description = description
         if (image) payload.image = image
 
         const category = await Categories.create(payload as any)

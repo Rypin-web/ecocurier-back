@@ -10,7 +10,7 @@ export async function updateCategory(req: RequestWithUser, res: Response, next: 
         await convertToWebp(req.file)
         const file = req.file
         const image = file ? file.originalname : undefined
-        const payload = getUpdateData(req.body, ['name', 'description', 'image'])
+        const payload = getUpdateData<Categories>(req.body, ['name', 'description', 'image'])
         payload.image = image
         const category = await Categories.findByPk(req.params.id)
         if (!category) throw ApiErrors.NotFound('Category not found')

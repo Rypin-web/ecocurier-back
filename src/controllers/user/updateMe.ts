@@ -16,8 +16,8 @@ export async function updateMe(req: RequestWithUser, res: Response, next: NextFu
             throw ApiErrors.NotFound('User not found');
         }
 
-        const updateData: any = getUpdateData(req.body, ['first_name', 'last_name', 'email', 'phone']);
-        await user.update(updateData);
+        const payload = getUpdateData<User>(req.body, ['first_name', 'last_name', 'email', 'phone']);
+        await user.update(payload);
         return res.status(200).send({
             msg: 'User updated successfully',
             data: {
@@ -26,7 +26,7 @@ export async function updateMe(req: RequestWithUser, res: Response, next: NextFu
                     password: undefined
                 },
                 updatedData: {
-                    ...updateData
+                    ...payload
                 }
             }
         });

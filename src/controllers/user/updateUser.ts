@@ -11,14 +11,17 @@ export async function updateUser(req: RequestWithUser, res: Response, next: Next
         const user = await User.findByPk(userId)
         if (!user) throw ApiErrors.NotFound('Not found')
 
-        let updateData: any = getUpdateData(req.body, ['role', 'first_name', 'last_name', 'email', 'phone'])
-        await user.update(updateData)
+        let payload = getUpdateData<User>(req.body, ['role', 'first_name', 'last_name', 'email', 'phone'])
+        await user.update(payload)
         return res.status(201).send({
             msg: 'success update',
             data: {
                 user: {
                     ...user.dataValues,
                     password: undefined
+                },
+                updatedData: {
+                    ...payload
                 }
             }
         })
