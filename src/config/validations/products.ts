@@ -43,3 +43,12 @@ export var validateGetAllProductsFields = () => checkSchema({
         isInt: {options: {min: 1, max: 100}, errorMessage: 'Limit must be an integer'},
     }
 }, ['query'])
+
+export var validateDeleteProductFields = () => checkSchema({
+    id: {
+        in: 'params',
+        notEmpty: true,
+        isUUID: true,
+        errorMessage: 'Product id is required',
+    }
+})
