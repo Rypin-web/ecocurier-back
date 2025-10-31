@@ -3,10 +3,15 @@ import {ENDPOINTS} from "@config/server";
 import {requireAuthorization} from "@/middlewares/requireAuthorization";
 import {requireAdministrator} from "@/middlewares/requireAdministrator";
 import {upload} from "@config/multer";
-import {validateCreateProductFields, validateGetAllProductsFields} from "@config/validations/products";
+import {
+    validateCreateProductFields,
+    validateDeleteProductFields,
+    validateGetAllProductsFields
+} from "@config/validations/products";
 import {validateFields} from "@/middlewares/validateFields.middleware";
 import {createProduct} from "@controllers/products/createProduct";
 import {getAllProducts} from "@controllers/products/getAllProducts";
+import {deleteProduct} from "@controllers/products/deleteProduct";
 
 var productsRouter = Router()
 
@@ -25,6 +30,14 @@ productsRouter.post(
     validateCreateProductFields(),
     validateFields,
     createProduct
+)
+productsRouter.delete(
+    ENDPOINTS.products.update,
+    requireAuthorization,
+    requireAdministrator,
+    validateDeleteProductFields(),
+    validateFields,
+    deleteProduct
 )
 
 export {productsRouter}
