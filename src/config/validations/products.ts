@@ -30,3 +30,16 @@ export var validateCreateProductFields = () => checkSchema({
         errorMessage: 'Category id is required',
     }
 })
+
+export var validateGetAllProductsFields = () => checkSchema({
+    page: {
+        notEmpty: {errorMessage: 'Page is required'},
+        toInt: true,
+        isInt: {options: {min: 1, max: Infinity}, errorMessage: 'Page must be an integer'},
+    },
+    limit: {
+        notEmpty: {errorMessage: 'Limit is required'},
+        toInt: true,
+        isInt: {options: {min: 1, max: 100}, errorMessage: 'Limit must be an integer'},
+    }
+}, ['query'])
