@@ -18,7 +18,8 @@ export async function updateCategory(req: RequestWithUser, res: Response, next: 
         return res.status(200).send({
             msg: 'Category updated successfully',
             data: {
-                category: category.dataValues
+                category: category.dataValues,
+                updateData: payload
             }
         })
     } catch (e) {

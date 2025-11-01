@@ -20,9 +20,7 @@ export async function updateUser(req: RequestWithUser, res: Response, next: Next
                     ...user.dataValues,
                     password: undefined
                 },
-                updatedData: {
-                    ...payload
-                }
+                updatedData: payload
             }
         })
     } catch (e) {

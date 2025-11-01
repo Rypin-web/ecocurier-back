@@ -25,9 +25,7 @@ export async function updateMe(req: RequestWithUser, res: Response, next: NextFu
                     ...user.dataValues,
                     password: undefined
                 },
-                updatedData: {
-                    ...payload
-                }
+                updatedData: payload
             }
         });
     } catch (e) {
