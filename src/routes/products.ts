@@ -6,12 +6,13 @@ import {upload} from "@config/multer";
 import {
     validateCreateProductFields,
     validateDeleteProductFields,
-    validateGetAllProductsFields
+    validateGetAllProductsFields, validateUpdateProductFields
 } from "@config/validations/products";
 import {validateFields} from "@/middlewares/validateFields.middleware";
 import {createProduct} from "@controllers/products/createProduct";
 import {getAllProducts} from "@controllers/products/getAllProducts";
 import {deleteProduct} from "@controllers/products/deleteProduct";
+import {updateProduct} from "@controllers/products/updateProduct";
 
 var productsRouter = Router()
 
@@ -30,6 +31,15 @@ productsRouter.post(
     validateCreateProductFields(),
     validateFields,
     createProduct
+)
+productsRouter.put(
+    ENDPOINTS.products.update,
+    requireAuthorization,
+    requireAdministrator,
+    upload.single('image'),
+    validateUpdateProductFields(),
+    validateFields,
+    updateProduct
 )
 productsRouter.delete(
     ENDPOINTS.products.update,
