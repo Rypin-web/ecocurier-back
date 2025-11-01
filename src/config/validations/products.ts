@@ -4,7 +4,7 @@ export var validateCreateProductFields = () => checkSchema({
     title: {
         notEmpty: true,
         isString: true,
-        isLength:{
+        isLength: {
             options: {min: 3, max: 128},
             errorMessage: 'Title must be between 3 and 128 characters long'
         },
@@ -50,5 +50,45 @@ export var validateDeleteProductFields = () => checkSchema({
         notEmpty: true,
         isUUID: true,
         errorMessage: 'Product id is required',
+    }
+})
+
+export var validateUpdateProductFields = () => checkSchema({
+    id: {
+        in: 'params',
+        isUUID: true,
+        notNull: true,
+        errorMessage: 'Product id is required',
+    },
+    title: {
+        in: 'body',
+        optional: true,
+        isString: true,
+        isLength: {
+            options: {min: 3, max: 128},
+            errorMessage: 'Title must be between 3 and 128 characters long'
+        },
+    },
+    description: {
+        in: 'body',
+        optional: true,
+        isString: true,
+        errorMessage: 'Description is required',
+    },
+    price: {
+        in: 'body',
+        optional: true,
+        isInt: {
+            options: {min: 1, max: Infinity},
+            errorMessage: 'Price must be a positive integer'
+        },
+        toInt: true,
+        errorMessage: 'Price is required',
+    },
+    category_id: {
+        in: 'body',
+        optional: true,
+        isUUID: true,
+        errorMessage: 'Category id is required',
     }
 })
