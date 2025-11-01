@@ -8,10 +8,8 @@ import {convertToWebp} from "@utils/convertToWebp";
 export async function updateCategory(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
         await convertToWebp(req.file)
-        const file = req.file
-        const image = file ? file.originalname : undefined
         const payload = extractBodyData<Categories>(req.body, ['name', 'description', 'image'])
-        payload.image = image
+        if(req.file) payload.image = req.file.filename
         const category = await Categories.findByPk(req.params.id)
         if (!category) throw ApiErrors.NotFound('Category not found')
         await category.update(payload)
