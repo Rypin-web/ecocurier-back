@@ -2,6 +2,7 @@ import { RequestWithUser } from "@/middlewares/requireAuthorization";
 import { NextFunction, Response } from "express";
 import { Products } from "@models/Products";
 import { ApiErrors } from "@utils/ApiErrors";
+import {deleteImage} from "@utils/deleteImage";
 
 export async function deleteProduct(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
@@ -11,6 +12,7 @@ export async function deleteProduct(req: RequestWithUser, res: Response, next: N
             throw ApiErrors.NotFound('Product not found');
         }
 
+        await deleteImage(req.file)
         await product.destroy();
 
         return res.status(200).send({
