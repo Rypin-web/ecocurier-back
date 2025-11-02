@@ -10,7 +10,7 @@ export var SALT = Number(process.env.SALT) || 13
 export var JWT_INFO = {
     SECRET_KEY_SESSION: process.env.SECRET_KEY_SESSION || 'secret_key_session',
     SECRET_KEY_REFRESH: process.env.SECRET_KEY_REFRESH || 'secret_key-refresh',
-    SESSION_EXPIRES_IN: 180, // 3m
+    SESSION_EXPIRES_IN: 600, // 3m
     REFRESH_EXPIRES_IN: 1209600, // 14d
 }
 export var imagePath = 'uploads'
