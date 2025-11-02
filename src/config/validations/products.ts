@@ -57,7 +57,7 @@ export var validateUpdateProductFields = () => checkSchema({
     id: {
         in: 'params',
         isUUID: true,
-        notNull: true,
+        notEmpty: true,
         errorMessage: 'Product id is required',
     },
     title: {
@@ -90,5 +90,22 @@ export var validateUpdateProductFields = () => checkSchema({
         optional: true,
         isUUID: true,
         errorMessage: 'Category id is required',
+    }
+})
+
+export var validateAddToBasketFields = () => checkSchema({
+    id: {
+        in: 'params',
+        notEmpty: true,
+        isUUID: true,
+        errorMessage: 'Product id is required',
+    },
+    q: {
+        in: 'query',
+        notEmpty: true,
+        isInt: true,
+        toInt: true,
+        isLength: {options: {min: 1, max: Infinity}, errorMessage: 'Quantity must be a positive integer'},
+        errorMessage: 'Quantity is required',
     }
 })
