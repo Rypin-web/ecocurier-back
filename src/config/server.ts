@@ -23,26 +23,22 @@ export var CORS = {
 }
 
 export var ENDPOINTS = {
-    baseUrl: '/api',
-    user: {
-        base: '/user',
-        def: '/',
+    base: '/api',
+    def: '/',
+    byId: '/:id',
+    resources: {
+        users: '/users',
+        categories: '/categories',
+        products: '/products',
+        basket: '/basket'
+    },
+    methods: {
+        update: '/update',
         register: '/register',
         login: '/login',
-        all: '/all',
-        logout:'/logout',
-        refresh:'/refresh',
-        updateMe: '/update',
-        updatePerson: '/:id/update'
-    },
-    categories: {
-        base: '/categories',
-        def: '/',
-        update:'/:id'
-    },
-    products:{
-        base:'/products',
-        def:'/',
-        update:'/:id'
+        logout: '/logout',
+        refresh: '/refresh',
+        me: '/me',
+        all: '/all'
     }
 }
