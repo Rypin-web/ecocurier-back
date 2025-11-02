@@ -12,7 +12,8 @@ export class Session extends Model<InferAttributes<Session>, InferCreationAttrib
     declare id: CreationOptional<string>
     declare userId: ForeignKey<User['id']>
     declare refreshToken: string | null
-    declare fingerprint: string
+    declare lastActivity: CreationOptional<Date>
+    declare expiresAt: Date
     declare createdAt: CreationOptional<Date>
     declare updatedAt: CreationOptional<Date>
 }
@@ -37,13 +38,18 @@ Session.init({
         type: DataTypes.TEXT,
         allowNull: false,
     },
-    fingerprint: {
-        type: DataTypes.STRING,
-        allowNull: false,
+    lastActivity: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: DataTypes.NOW
+    },
+    expiresAt:{
+        type: DataTypes.DATE,
+        allowNull:false
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
 }, {
     sequelize,
-    tableName: 'sessions'
+    tableName: 'sessions',
 })
