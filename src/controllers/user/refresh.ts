@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response} from "express";
-import {checkFingerprint} from "@utils/fingerprint";
 import {ApiErrors} from "@utils/ApiErrors";
 import {Session} from "@models/Session";
 import {User} from "@models/User";
@@ -13,14 +12,14 @@ export async function refresh(req: Request, res: Response, next: NextFunction) {
         const refresh = req.cookies['refresh-token'] || ''
         if (!refresh) throw ApiErrors.invalidCredentials('Invalid token.')
 
-        const decoded = jwt.verify(refresh, JWT_INFO.SECRET_KEY_REFRESH) as {id: string}
+        const decoded = jwt.verify(refresh, JWT_INFO.SECRET_KEY_REFRESH) as { id: string }
         if (!decoded) throw ApiErrors.invalidCredentials('Invalid token.')
 
         const session = await Session.findOne({
-            where:{
+            where: {
                 refreshToken: hashToken(refresh),
                 userId: decoded.id,
-                expiresAt:{[Op.gt]: Date.now()}
+                expiresAt: {[Op.gt]: Date.now()}
             }
         })
         if (!session) throw ApiErrors.invalidCredentials('Invalid token.')
