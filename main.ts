@@ -14,7 +14,7 @@ app.use(Express.json())
 app.use(cors(CORS))
 app.use(helmet())
 app.use(cookieParser())
-app.use(ENDPOINTS.baseUrl, router)
+app.use(ENDPOINTS.base, router)
 app.use(errorsMiddleware)
 
 sequelize.sync().then(() => {

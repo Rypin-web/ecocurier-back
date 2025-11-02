@@ -21,12 +21,19 @@ import {validateFields} from "@/middlewares/validateFields.middleware";
 
 var userRouter = Router()
 
-userRouter.get(ENDPOINTS.user.def, requireAuthorization, getMe)
-userRouter.get(ENDPOINTS.user.refresh, refresh)
-userRouter.get(ENDPOINTS.user.all, requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), validateFields, getAllUsers)
-userRouter.post(ENDPOINTS.user.register, validateRegisterFields(), validateFields, register)
-userRouter.post(ENDPOINTS.user.login, validateLoginFields(), validateFields, login)
-userRouter.put(ENDPOINTS.user.updateMe, requireAuthorization, validateUpdateMeFields(), validateFields, updateMe)
-userRouter.delete(ENDPOINTS.user.logout, requireAuthorization, logout)
-userRouter.put(ENDPOINTS.user.updatePerson, requireAuthorization, requireAdministrator, validateUpdatePersonFields(), validateFields, updateUser)
+userRouter.get(ENDPOINTS.def, requireAuthorization, getMe)
+userRouter.get(ENDPOINTS.methods.refresh, refresh)
+userRouter.get(ENDPOINTS.methods.all, requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), validateFields, getAllUsers)
+userRouter.post(ENDPOINTS.methods.register, validateRegisterFields(), validateFields, register)
+userRouter.post(ENDPOINTS.methods.login, validateLoginFields(), validateFields, login)
+userRouter.put(ENDPOINTS.methods.me, requireAuthorization, validateUpdateMeFields(), validateFields, updateMe)
+userRouter.delete(ENDPOINTS.methods.logout, requireAuthorization, logout)
+userRouter.put(
+    ENDPOINTS.byId + ENDPOINTS.methods.update,
+    requireAuthorization,
+    requireAdministrator,
+    validateUpdatePersonFields(),
+    validateFields,
+    updateUser
+)
 export {userRouter}

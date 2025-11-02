@@ -18,14 +18,14 @@ import {validateFields} from "@/middlewares/validateFields.middleware";
 var categoriesRouter = Router()
 
 categoriesRouter.get(
-    ENDPOINTS.categories.def,
+    ENDPOINTS.def,
     requireAuthorization,
     validateGetAllCategoriesFields(),
     validateFields,
     getAllCategories
 )
 categoriesRouter.post(
-    ENDPOINTS.categories.def,
+    ENDPOINTS.def,
     requireAuthorization,
     requireAdministrator,
     upload.single('image'),
@@ -34,7 +34,7 @@ categoriesRouter.post(
     createCategory
 )
 categoriesRouter.put(
-    ENDPOINTS.categories.update,
+    ENDPOINTS.byId,
     requireAuthorization,
     requireAdministrator,
     upload.single('image'),
@@ -43,7 +43,7 @@ categoriesRouter.put(
     updateCategory
 )
 categoriesRouter.delete(
-    ENDPOINTS.categories.update,
+    ENDPOINTS.byId,
     requireAuthorization,
     requireAdministrator,
     validateDeleteCategoryFields(),

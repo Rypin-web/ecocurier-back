@@ -6,8 +6,8 @@ import {productsRouter} from "@routes/products";
 
 var router = Router()
 
-router.use(ENDPOINTS.user.base, userRouter)
-router.use(ENDPOINTS.categories.base, categoriesRouter)
-router.use(ENDPOINTS.products.base, productsRouter)
+router.use(ENDPOINTS.resources.users, userRouter)
+router.use(ENDPOINTS.resources.categories, categoriesRouter)
+router.use(ENDPOINTS.resources.products, productsRouter)
 
 export {router}

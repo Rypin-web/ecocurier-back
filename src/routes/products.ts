@@ -19,14 +19,14 @@ import {addToBasket} from "@controllers/products/addToBasket";
 var productsRouter = Router()
 
 productsRouter.get(
-    ENDPOINTS.products.def,
+    ENDPOINTS.def,
     requireAuthorization,
     validateGetAllProductsFields(),
     validateFields,
     getAllProducts
 )
 productsRouter.post(
-    ENDPOINTS.products.def,
+    ENDPOINTS.def,
     requireAuthorization,
     requireAdministrator,
     upload.single('image'),
@@ -35,14 +35,14 @@ productsRouter.post(
     createProduct
 )
 productsRouter.post(
-    ENDPOINTS.products.update,
+    ENDPOINTS.byId,
     requireAuthorization,
     validateAddToBasketFields(),
     validateFields,
     addToBasket
 )
 productsRouter.put(
-    ENDPOINTS.products.update,
+    ENDPOINTS.byId,
     requireAuthorization,
     requireAdministrator,
     upload.single('image'),
@@ -51,7 +51,7 @@ productsRouter.put(
     updateProduct
 )
 productsRouter.delete(
-    ENDPOINTS.products.update,
+    ENDPOINTS.byId,
     requireAuthorization,
     requireAdministrator,
     validateDeleteProductFields(),
