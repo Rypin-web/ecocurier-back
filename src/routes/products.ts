@@ -4,6 +4,7 @@ import {requireAuthorization} from "@/middlewares/requireAuthorization";
 import {requireAdministrator} from "@/middlewares/requireAdministrator";
 import {upload} from "@config/multer";
 import {
+    validateAddToBasketFields,
     validateCreateProductFields,
     validateDeleteProductFields,
     validateGetAllProductsFields, validateUpdateProductFields
@@ -13,6 +14,7 @@ import {createProduct} from "@controllers/products/createProduct";
 import {getAllProducts} from "@controllers/products/getAllProducts";
 import {deleteProduct} from "@controllers/products/deleteProduct";
 import {updateProduct} from "@controllers/products/updateProduct";
+import {addToBasket} from "@controllers/products/addToBasket";
 
 var productsRouter = Router()
 
@@ -31,6 +33,13 @@ productsRouter.post(
     validateCreateProductFields(),
     validateFields,
     createProduct
+)
+productsRouter.post(
+    ENDPOINTS.products.update,
+    requireAuthorization,
+    validateAddToBasketFields(),
+    validateFields,
+    addToBasket
 )
 productsRouter.put(
     ENDPOINTS.products.update,
