@@ -2,20 +2,26 @@ import {RequestWithUser} from "@/middlewares/requireAuthorization";
 import {NextFunction, Response} from "express";
 import {ApiErrors} from "@utils/ApiErrors";
 import {Session} from "@models/Session";
-import {checkFingerprint} from "@utils/fingerprint";
+import {hashToken} from "@utils/hashToken";
+import {Op} from "sequelize";
 
 export async function logout(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
         const refreshToken = req.cookies['refresh-token'] || ''
-        const userId = req.user?.sep || ''
-        if (!refreshToken || !userId) throw ApiErrors.invalidCredentials('Invalid token.')
-        const session = await Session.findOne({where: {refreshToken: refreshToken, userId: userId}})
-        if(!session) throw ApiErrors.invalidCredentials('Logout failed')
-        if(!await checkFingerprint(req, session.fingerprint)) throw ApiErrors.invalidCredentials('Invalid fingerprint')
+        const userId = req.user?.id || ''
+        if (!refreshToken || !userId) throw ApiErrors.invalidCredentials('Invalid data.')
+        const session = await Session.findOne({
+            where: {
+                refreshToken: hashToken(refreshToken),
+                userId: userId,
+                expiresAt: {[Op.gt]: Date.now()}
+            }
+        })
+        if(!session) throw ApiErrors.invalidCredentials('Invalid data.')
         await session.destroy()
         res.clearCookie('refresh-token')
         return res.status(200).send({
-            msg:'Success logout'
+            msg: 'Success logout'
         })
     } catch (e) {
         next(e)
