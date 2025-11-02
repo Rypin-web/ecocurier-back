@@ -6,7 +6,7 @@ import {extractBodyData} from "@utils/extractBodyData";
 
 export async function updateMe(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
-        const userId = req.user?.sep;
+        const userId = req.user?.id;
         if (!userId) {
             throw ApiErrors.invalidCredentials('User not authenticated');
         }

@@ -5,7 +5,7 @@ import {ApiErrors} from "@utils/ApiErrors";
 import {extractTokenFromHeader} from "@utils/extractTokenFromHeader";
 
 export type SessionClaims = {
-    sep: string,
+    id: string,
     role: 'user' | 'admin'
 } & JwtPayload
 export type RequestWithUser = Request & { user?: SessionClaims };
