@@ -39,6 +39,7 @@ export var ENDPOINTS = {
         logout: '/logout',
         refresh: '/refresh',
         me: '/me',
-        all: '/all'
+        all: '/all',
+        basket: '/basket'
     }
 }
