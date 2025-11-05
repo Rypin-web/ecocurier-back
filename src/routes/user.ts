@@ -5,7 +5,8 @@ import {
     validateQueryGetAllUsers,
     validateRegisterFields, validateShowMyBasketFields,
     validateUpdateMeFields,
-    validateUpdatePersonFields
+    validateUpdatePersonFields,
+    validateGetUserBasketFields
 } from "@config/validations/user";
 import {login} from "@controllers/user/login";
 import {getMe} from "@controllers/user/getMe";
@@ -19,6 +20,7 @@ import {logout} from "@controllers/user/logout";
 import {updateUser} from "@controllers/user/updateUser";
 import {validateFields} from "@/middlewares/validateFields.middleware";
 import {showMyBasket} from "@controllers/user/showMyBasket";
+import {getUserBasket} from "@controllers/user/getUserBasket";
 
 var userRouter = Router()
 
@@ -30,6 +32,14 @@ userRouter.get(
     validateShowMyBasketFields(),
     validateFields,
     showMyBasket
+)
+userRouter.get(
+    ENDPOINTS.byId + ENDPOINTS.methods.basket,
+    requireAuthorization,
+    requireAdministrator,
+    validateGetUserBasketFields(),
+    validateFields,
+    getUserBasket
 )
 userRouter.get(ENDPOINTS.methods.all, requireAuthorization, requireAdministrator, validateQueryGetAllUsers(), validateFields, getAllUsers)
 userRouter.post(ENDPOINTS.methods.register, validateRegisterFields(), validateFields, register)
