@@ -176,3 +176,23 @@ export var validateShowMyBasketFields = () => checkSchema({
         isInt: {options: {min: 1, max: 100}, errorMessage: 'Limit must be an integer'},
     }
 })
+
+export var validateGetUserBasketFields = () => checkSchema({
+    id: {
+        in: 'params',
+        notEmpty: {errorMessage: 'User id is required'},
+        isUUID: {errorMessage: 'User id must be a valid UUID'}
+    },
+    page: {
+        in: 'query',
+        notEmpty: {errorMessage: 'Page is required'},
+        toInt: true,
+        isInt: {options: {min: 1, max: Infinity}, errorMessage: 'Page must be an integer'},
+    },
+    limit: {
+        in: 'query',
+        notEmpty: {errorMessage: 'Limit is required'},
+        toInt: true,
+        isInt: {options: {min: 1, max: 100}, errorMessage: 'Limit must be an integer'},
+    }
+})
