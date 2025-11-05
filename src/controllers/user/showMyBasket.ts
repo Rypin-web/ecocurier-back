@@ -15,6 +15,7 @@ export async function showMyBasket(req: RequestWithUser, res: Response, next: Ne
                 userId: userId
             },
             offset: offset,
+            limit: limit,
             include: {
                 model: Products,
                 attributes: ['id', 'title', 'image', 'price', 'description']
