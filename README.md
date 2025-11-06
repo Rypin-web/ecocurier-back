@@ -68,74 +68,13 @@ src/
     validations/
       user.ts                # Схемы валидаций пользователя
       categories.ts          # Схема валидации создания категории
+      products.ts
   controllers/
     user/                    # Контроллеры пользователя
     categories/              # Контроллеры категорий
+    products/                # Контроллеры продуктов
   models/                    # Sequelize-модели (User, Categories, ...)
   routes/                    # Роутеры (user, categories, ...) + Router.ts
   utils/                     # ApiErrors и пр.
 main.ts                      # Точка входа
 ```
-##  Доступные эндпоинты
-
-Базовый префикс для всех маршрутов: `ENDPOINTS.baseUrl = /api` (см. `src/config/server.ts`).
-
-### Пользователи (`/api/user`)
-
-- **GET `/api/user/`** — Профиль текущего пользователя
-  - **Auth**: требуется (`Authorization: Bearer <token>`)
-  - **Response 200**: `{ data: { user: { ... } } }`
-
-- **GET `/api/user/refresh`** — Обновить session-токен по refresh
-  - **Auth**: не требуется (работает с refresh-cookie)
-  - **Response 200**: токены/куки обновлены
-
-- **GET `/api/user/all?page=1&limit=20`** — Список пользователей
-  - **Auth**: требуется, только администратор
-  - **Query**: `page` int≥1, `limit` int 1..100
-  - **Response 200**: `{ data: { users: [...], total } }`
-
-- **POST `/api/user/register`** — Регистрация
-  - **Body (JSON)**:
-    - `first_name` string [3..128]
-    - `phone` string [8..32], формат ru-RU
-    - `email` string [6..128], email
-    - `password` string [8..32]
-  - **Response 201**: `{ data: { user: { ... } } }`
-
-- **POST `/api/user/login`** — Вход
-  - **Body (JSON)**: `email`, `password`
-  - **Response 200**: `{ data: { user: { ... } } }` (и/или установка токенов/куки)
-
-- **PUT `/api/user/update`** — Обновить свой профиль
-  - **Auth**: требуется
-  - **Body (JSON)**: `firstName?`, `lastName?`, `email?`, `phone?`
-  - **Response 200**: `{ data: { user: { ... } } }`
-
-- **PUT `/api/user/:id/update`** — Обновить пользователя по id
-  - **Auth**: требуется, только администратор
-  - **Params**: `id` — UUID
-  - **Body (JSON)**: `role? ('user'|'admin')`, `firstName?`, `lastName?`, `email?`, `phone?`
-  - **Response 200**: `{ data: { user: { ... } } }`
-
-- **DELETE `/api/user/logout`** — Выход
-  - **Auth**: требуется
-  - **Response 200**: `{ msg: 'ok' }`
-
-### Категории (`/api/categories`)
-
-- **POST `/api/categories/`** — Создать категорию
-  - **Auth**: требуется, только администратор
-  - **Content-Type**: `multipart/form-data`
-  - **Form fields**:
-    - `name` string [2..255] — обязательно
-    - `description` string (≤10000) — опционально
-    - `image` file (jpeg/png/jpg) — опционально (`upload.single('image')`)
-  - **Response 201**:
-    ```json
-    {
-      "msg": "category is created: <name>",
-      "data": { "category": { "id": "...", "name": "...", "description": "...", "image": "...", "createdAt": "..." } }
-    }
-    ```
-  - **Errors**: `400` (валидация), `401/403` (auth/admin), `409` (уже существует)

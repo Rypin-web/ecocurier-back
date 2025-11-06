@@ -66,74 +66,13 @@ src/
     validations/
       user.ts                # User validation schemas
       categories.ts          # Category creation validation schema
+      products.ts            # Product validation schema
   controllers/
     user/                    # User controllers
     categories/              # Categories controllers
+    products/                # Products controllers
   models/                    # Sequelize models (User, Categories, ...)
   routes/                    # Routers (user, categories, ...) + Router.ts
   utils/                     # ApiErrors, etc.
 main.ts                      # Entry point
 ```
-
-## 📚 Available endpoints
-Base prefix for all routes: `ENDPOINTS.baseUrl = /api` (see `src/config/server.ts`).
-
-### Users (`/api/user`)
-
-- **GET `/api/user/`** — Get current user profile
-  - **Auth**: required (`Authorization: Bearer <token>`)
-  - **Response 200**: `{ data: { user: { ... } } }`
-
-- **GET `/api/user/refresh`** — Refresh session token using the refresh token
-  - **Auth**: not required (works with refresh cookie)
-  - **Response 200**: tokens/cookies updated
-
-- **GET `/api/user/all?page=1&limit=20`** — List users (pagination)
-  - **Auth**: required, admin only
-  - **Query**: `page` int≥1, `limit` int 1..100
-  - **Response 200**: `{ data: { users: [...], total } }`
-
-- **POST `/api/user/register`** — Register
-  - **Body (JSON)**:
-    - `first_name` string [3..128]
-    - `phone` string [8..32], ru-RU format
-    - `email` string [6..128], email
-    - `password` string [8..32]
-  - **Response 201**: `{ data: { user: { ... } } }`
-
-- **POST `/api/user/login`** — Login
-  - **Body (JSON)**: `email`, `password`
-  - **Response 200**: `{ data: { user: { ... } } }` (and/or sets tokens/cookies)
-
-- **PUT `/api/user/update`** — Update own profile
-  - **Auth**: required
-  - **Body (JSON)**: `firstName?`, `lastName?`, `email?`, `phone?`
-  - **Response 200**: `{ data: { user: { ... } } }`
-
-- **PUT `/api/user/:id/update`** — Update user by id
-  - **Auth**: required, admin only
-  - **Params**: `id` — UUID
-  - **Body (JSON)**: `role? ('user'|'admin')`, `firstName?`, `lastName?`, `email?`, `phone?`
-  - **Response 200**: `{ data: { user: { ... } } }`
-
-- **DELETE `/api/user/logout`** — Logout
-  - **Auth**: required
-  - **Response 200**: `{ msg: 'ok' }`
-
-### Categories (`/api/categories`)
-
-- **POST `/api/categories/`** — Create category
-  - **Auth**: required, admin only
-  - **Content-Type**: `multipart/form-data`
-  - **Form fields**:
-    - `name` string [2..255] — required
-    - `description` string (≤10000) — optional
-    - `image` file (jpeg/png/jpg) — optional (`upload.single('image')`)
-  - **Response 201**:
-    ```json
-    {
-      "msg": "category is created: <name>",
-      "data": { "category": { "id": "...", "name": "...", "description": "...", "image": "...", "createdAt": "..." } }
-    }
-    ```
-  - **Errors**: `400` (validation), `401/403` (auth/admin), `409` (already exists)
