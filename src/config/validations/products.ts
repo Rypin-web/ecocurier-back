@@ -109,3 +109,24 @@ export var validateAddToBasketFields = () => checkSchema({
         errorMessage: 'Quantity is required',
     }
 })
+
+export var validateGetProductInBasketsFields = () => checkSchema({
+    id: {
+        in: 'params',
+        notEmpty: true,
+        isUUID: {errorMessage: 'Product id must be a valid UUID'},
+        errorMessage: 'Product id is required'
+    },
+    page: {
+        in: 'query',
+        notEmpty: {errorMessage: 'Page is required'},
+        toInt: true,
+        isInt: {options: {min: 1, max: Infinity}, errorMessage: 'Page must be an integer'},
+    },
+    limit: {
+        in: 'query',
+        notEmpty: {errorMessage: 'Limit is required'},
+        toInt: true,
+        isInt: {options: {min: 1, max: 100}, errorMessage: 'Limit must be an integer'},
+    }
+})
