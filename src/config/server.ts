@@ -30,7 +30,7 @@ export var ENDPOINTS = {
         users: '/users',
         categories: '/categories',
         products: '/products',
-        basket: '/basket'
+        basket: '/baskets'
     },
     methods: {
         update: '/update',
@@ -40,6 +40,6 @@ export var ENDPOINTS = {
         refresh: '/refresh',
         me: '/me',
         all: '/all',
-        basket: '/basket'
+        basket: '/basket',
     }
 }
