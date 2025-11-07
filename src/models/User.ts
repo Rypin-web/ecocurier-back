@@ -26,7 +26,7 @@ User.init({
         primaryKey:true,
     },
     role: {
-        type: DataTypes.ENUM('user', 'admin'),
+        type: DataTypes.ENUM('user', 'admin', 'courier'),
         allowNull:false,
     },
     first_name:{
