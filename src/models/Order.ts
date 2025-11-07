@@ -8,6 +8,7 @@ export class Order extends Model<InferAttributes<Order>, InferCreationAttributes
     declare status: string
     declare totalPrice: number
     declare deliveryAddress: string
+    declare courierId: string
     declare createdAt: CreationOptional<Date>
     declare updatedAt: CreationOptional<Date>
 }
@@ -40,6 +41,16 @@ Order.init({
     deliveryAddress: {
         type: DataTypes.STRING(255),
         allowNull: false
+    },
+    courierId: {
+        type: DataTypes.UUID,
+        allowNull: true,
+        references: {
+            model: User,
+            key: 'id'
+        },
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE'
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
