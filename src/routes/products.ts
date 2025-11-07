@@ -1,15 +1,13 @@
 import {Router} from "express";
 import {ENDPOINTS} from "@config/server";
-import {requireAuthorization} from "@/middlewares/requireAuthorization";
-import {requireAdministrator} from "@/middlewares/requireAdministrator";
 import {upload} from "@config/multer";
 import {
     validateAddToBasketFields,
     validateCreateProductFields,
     validateDeleteProductFields,
     validateGetAllProductsFields,
-    validateUpdateProductFields,
-    validateGetProductInBasketsFields
+    validateGetProductInBasketsFields,
+    validateUpdateProductFields
 } from "@config/validations/products";
 import {validateFields} from "@/middlewares/validateFields.middleware";
 import {createProduct} from "@controllers/products/createProduct";
@@ -18,12 +16,13 @@ import {deleteProduct} from "@controllers/products/deleteProduct";
 import {updateProduct} from "@controllers/products/updateProduct";
 import {addToBasket} from "@controllers/products/addToBasket";
 import {getProductInBaskets} from "@controllers/products/getProductInBaskets";
+import {requireRole} from "@/middlewares/requireRole";
 
 var productsRouter = Router({mergeParams: true})
 
 productsRouter.get(
     ENDPOINTS.def,
-    requireAuthorization,
+    requireRole(),
     validateGetAllProductsFields(),
     validateFields,
     getAllProducts
@@ -36,16 +35,14 @@ productsRouter.get(
 // параметры, но query видит, что блять?
 productsRouter.get(
     ENDPOINTS.resources.basket + ENDPOINTS.byId, // /api/products/baskets/:id?...
-    requireAuthorization,
-    requireAdministrator,
+    requireRole('admin'),
     validateGetProductInBasketsFields(),
     validateFields,
     getProductInBaskets
 )
 productsRouter.post(
     ENDPOINTS.def,
-    requireAuthorization,
-    requireAdministrator,
+    requireRole('admin'),
     upload.single('image'),
     validateCreateProductFields(),
     validateFields,
@@ -53,15 +50,14 @@ productsRouter.post(
 )
 productsRouter.post(
     ENDPOINTS.byId,
-    requireAuthorization,
+    requireRole(),
     validateAddToBasketFields(),
     validateFields,
     addToBasket
 )
 productsRouter.put(
     ENDPOINTS.byId,
-    requireAuthorization,
-    requireAdministrator,
+    requireRole('admin'),
     upload.single('image'),
     validateUpdateProductFields(),
     validateFields,
@@ -69,8 +65,7 @@ productsRouter.put(
 )
 productsRouter.delete(
     ENDPOINTS.byId,
-    requireAuthorization,
-    requireAdministrator,
+    requireRole('admin'),
     validateDeleteProductFields(),
     validateFields,
     deleteProduct

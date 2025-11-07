@@ -1,8 +1,6 @@
 import {Router} from "express";
 import {ENDPOINTS} from "@config/server";
 import {createCategory} from "@controllers/categories/createCategory";
-import {requireAuthorization} from "@/middlewares/requireAuthorization";
-import {requireAdministrator} from "@/middlewares/requireAdministrator";
 import {upload} from "@config/multer";
 import {
     validateCreateCategoryFields,
@@ -14,20 +12,20 @@ import {getAllCategories} from "@controllers/categories/getAllCategories";
 import {updateCategory} from "@controllers/categories/updateCategory";
 import {deleteCategory} from "@controllers/categories/deleteCategory";
 import {validateFields} from "@/middlewares/validateFields.middleware";
+import {requireRole} from "@/middlewares/requireRole";
 
 var categoriesRouter = Router()
 
 categoriesRouter.get(
     ENDPOINTS.def,
-    requireAuthorization,
+    requireRole(),
     validateGetAllCategoriesFields(),
     validateFields,
     getAllCategories
 )
 categoriesRouter.post(
     ENDPOINTS.def,
-    requireAuthorization,
-    requireAdministrator,
+    requireRole('admin'),
     upload.single('image'),
     validateCreateCategoryFields(),
     validateFields,
@@ -35,8 +33,7 @@ categoriesRouter.post(
 )
 categoriesRouter.put(
     ENDPOINTS.byId,
-    requireAuthorization,
-    requireAdministrator,
+    requireRole('admin'),
     upload.single('image'),
     validateUpdateCategoryFields(),
     validateFields,
@@ -44,8 +41,7 @@ categoriesRouter.put(
 )
 categoriesRouter.delete(
     ENDPOINTS.byId,
-    requireAuthorization,
-    requireAdministrator,
+    requireRole('admin'),
     validateDeleteCategoryFields(),
     validateFields,
     deleteCategory
