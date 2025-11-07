@@ -1,11 +1,10 @@
-import {RequestWithUser} from "@/middlewares/requireAuthorization";
-import {NextFunction, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 import {Basket} from "@models/Basket";
 import {Products} from "@models/Products";
 import {User} from "@models/User";
 import {ApiErrors} from "@utils/ApiErrors";
 
-export async function getProductInBaskets(req: RequestWithUser, res: Response, next: NextFunction) {
+export async function getProductInBaskets(req: Request, res: Response, next: NextFunction) {
     try {
         const productId = req.params.id
         const page = Number(req.query.page) || 1

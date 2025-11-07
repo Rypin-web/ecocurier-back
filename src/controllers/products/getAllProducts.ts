@@ -1,9 +1,8 @@
-import {NextFunction, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 import {Products} from "@models/Products";
 import {Categories} from "@models/Categories";
-import {RequestWithUser} from "@/middlewares/requireAuthorization";
 
-export async function getAllProducts(req: RequestWithUser, res: Response, next: NextFunction) {
+export async function getAllProducts(req: Request, res: Response, next: NextFunction) {
     try {
         const page = Number(req.query.page) || 1;
         const limit = Math.min(Number(req.query.limit) || 10, 100);
@@ -16,7 +15,7 @@ export async function getAllProducts(req: RequestWithUser, res: Response, next: 
                 attributes: ['id', 'name', 'image']
             }]
         });
-        
+
         return res.status(200).send({
             msg: 'Success get products',
             data: {

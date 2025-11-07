@@ -1,8 +1,8 @@
 import {NextFunction, Response} from "express";
 import {ApiErrors} from "@utils/ApiErrors";
-import {RequestWithUser} from "@/middlewares/requireAuthorization";
 import {User} from "@models/User";
 import {extractBodyData} from "@utils/extractBodyData";
+import {RequestWithUser} from "@/middlewares/requireRole";
 
 export async function updateMe(req: RequestWithUser, res: Response, next: NextFunction) {
     try {

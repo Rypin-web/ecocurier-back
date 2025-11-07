@@ -1,6 +1,6 @@
 import {NextFunction, Response} from 'express'
 import {ApiErrorsType} from "@utils/ApiErrors";
-import {RequestWithUser} from "@/middlewares/requireAuthorization";
+import { RequestWithUser } from './requireRole';
 
 export function errorsMiddleware(err: ApiErrorsType, req: RequestWithUser, res: Response, next: NextFunction) {
     var responseData = {

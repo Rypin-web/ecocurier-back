@@ -1,7 +1,7 @@
-import {RequestWithUser} from "@/middlewares/requireAuthorization";
 import {NextFunction, Response} from "express";
 import {Basket} from "@models/Basket";
 import { Products } from "@/models/Products";
+import {RequestWithUser} from "@/middlewares/requireRole";
 
 export async function showMyBasket(req: RequestWithUser, res: Response, next: NextFunction) {
     try {

@@ -1,10 +1,9 @@
-import { RequestWithUser } from "@/middlewares/requireAuthorization";
-import { NextFunction, Response } from "express";
+import {NextFunction, Request, Response} from "express";
 import { Products } from "@models/Products";
 import { ApiErrors } from "@utils/ApiErrors";
 import {deleteImage} from "@utils/deleteImage";
 
-export async function deleteProduct(req: RequestWithUser, res: Response, next: NextFunction) {
+export async function deleteProduct(req: Request, res: Response, next: NextFunction) {
     try {
         const product = await Products.findByPk(req.params.id);
 

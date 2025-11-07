@@ -1,9 +1,9 @@
-import {RequestWithUser} from "@/middlewares/requireAuthorization";
 import {NextFunction, Response} from "express";
 import {ApiErrors} from "@utils/ApiErrors";
 import {Session} from "@models/Session";
 import {hashToken} from "@utils/hashToken";
 import {Op} from "sequelize";
+import {RequestWithUser} from "@/middlewares/requireRole";
 
 export async function logout(req: RequestWithUser, res: Response, next: NextFunction) {
     try {

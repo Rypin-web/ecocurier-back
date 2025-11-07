@@ -1,11 +1,10 @@
-import {RequestWithUser} from "@/middlewares/requireAuthorization";
-import {NextFunction, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 import {extractBodyData} from "@utils/extractBodyData";
 import {Products} from "@models/Products";
 import {convertToWebp} from "@utils/convertToWebp";
 import {ApiErrors} from "@utils/ApiErrors";
 
-export async function updateProduct(req: RequestWithUser, res: Response, next: NextFunction) {
+export async function updateProduct(req: Request, res: Response, next: NextFunction) {
     await convertToWebp(req.file)
 
     const payload = extractBodyData<Products>(req.body, ['title', 'price', 'description', 'category_id'])

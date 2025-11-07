@@ -1,10 +1,9 @@
-import {RequestWithUser} from "@/middlewares/requireAuthorization";
-import {NextFunction, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 import {ApiErrors} from "@utils/ApiErrors";
 import {User} from "@models/User";
 import {extractBodyData} from "@utils/extractBodyData";
 
-export async function updateUser(req: RequestWithUser, res: Response, next: NextFunction) {
+export async function updateUser(req: Request, res: Response, next: NextFunction) {
     try {
         const userId = req.params.id
         if (!userId) throw ApiErrors.invalidCredentials('suerId is required')

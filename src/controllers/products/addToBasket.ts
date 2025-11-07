@@ -1,8 +1,8 @@
-import { RequestWithUser } from "@/middlewares/requireAuthorization";
 import {NextFunction, Response} from "express";
 import {Products} from "@models/Products";
 import {ApiErrors} from "@utils/ApiErrors";
 import {Basket} from "@models/Basket";
+import {RequestWithUser} from "@/middlewares/requireRole";
 
 
 export async function addToBasket(req: RequestWithUser, res: Response, next: NextFunction) {
