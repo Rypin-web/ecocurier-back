@@ -2,7 +2,7 @@ import {NextFunction, Response} from 'express'
 import {ApiErrorsType} from "@utils/ApiErrors";
 import { RequestWithUser } from './requireRole';
 
-export function errorsMiddleware(err: ApiErrorsType, req: RequestWithUser, res: Response, next: NextFunction) {
+export function errorsMiddleware(err: ApiErrorsType, req: RequestWithUser, res: Response, _next: NextFunction) {
     var responseData = {
         reqData: {
             body: req.body,

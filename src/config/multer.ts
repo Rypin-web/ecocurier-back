@@ -4,17 +4,17 @@ import {imagePath} from "@config/server";
 
 var types = ['image/png', 'image/jpeg', 'image/jpg']
 var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination: function (_req, _file, cb) {
         cb(null, imagePath)
     },
-    filename: function (req, file, cb) {
+    filename: function (_req, file, cb) {
         const filenameArray = file.originalname.split('.')
         const filetype = filenameArray.pop()
         cb(null, filenameArray.join('.') + '-' + Date.now() + '-' + Math.floor(Math.random() * 1e9) + '.' + filetype)
     }
 })
 
-function fileFilter(req: Request, file: Express.Multer.File, cb: FileFilterCallback) {
+function fileFilter(_req: Request, file: Express.Multer.File, cb: FileFilterCallback) {
     console.log(file)
     if (types.includes(file.originalname.split('.').join('/'))) {
         return cb(null, true)

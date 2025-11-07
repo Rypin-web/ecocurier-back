@@ -11,7 +11,7 @@ export type SessionClaims = {
 export type RequestWithUser = Request & { user?: SessionClaims };
 
 export const requireRole = (requiredRole?: 'user' | 'admin' | 'courier') =>
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: RequestWithUser, _res: Response, next: NextFunction) => {
         try {
             const token = extractTokenFromHeader(req);
             if (!token) throw ApiErrors.invalidCredentials("Unauthorized");
