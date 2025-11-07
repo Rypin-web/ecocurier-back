@@ -1,11 +1,11 @@
 import {NextFunction, Response} from "express";
 import {ApiErrors} from "@utils/ApiErrors";
-import {RequestWithUser} from "@/middlewares/requireAuthorization";
 import {User} from "@models/User";
+import {RequestWithUser} from "@/middlewares/requireRole";
 
 export async function getMe(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
-        const userFromDb = await User.findByPk(req.user?.sep)
+        const userFromDb = await User.findByPk(req.user?.id)
         if (!userFromDb) throw ApiErrors.NotFound('User not found')
 
         return res.status(200).send({
