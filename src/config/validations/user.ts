@@ -196,3 +196,14 @@ export var validateGetUserBasketFields = () => checkSchema({
         isInt: {options: {min: 1, max: 100}, errorMessage: 'Limit must be an integer'},
     }
 })
+
+export var validateMakeOrderFields = () => checkSchema({
+    deliveryAddress: {
+        in: 'body',
+        notEmpty: {errorMessage: 'Delivery address is required'},
+        isLength: {
+            options: {min: 6, max: 128},
+            errorMessage: 'Delivery address must be between 6 and 128 characters long'
+        }
+    }
+})

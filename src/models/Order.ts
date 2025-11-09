@@ -39,7 +39,7 @@ Order.init({
         allowNull: false
     },
     deliveryAddress: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(128),
         allowNull: false
     },
     courierId: {
