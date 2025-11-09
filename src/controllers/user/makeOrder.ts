@@ -35,13 +35,12 @@ export async function makeOrder(req: RequestWithUser, res: Response, next: NextF
             )
 
             const order = await Order.create(orderPayload as any, {transaction: t})
-            const orderItems = await Promise.all(userBasket.map(async (item) =>
-                await OrderItem.create({
-                    orderId: order.id,
-                    productId: item.product.id,
-                    quantity: item.quantity
-                }, {transaction: t})
-            ))
+            const orderItemsData = userBasket.map((item) => ({
+                orderId: order.id,
+                productId: item.product.id,
+                quantity: item.quantity
+            }))
+            const orderItems = await OrderItem.bulkCreate(orderItemsData, {transaction: t})
             await Basket.destroy({where: {userId: req.user?.id}, transaction: t})
 
             return {order, orderItems}
