@@ -2,7 +2,7 @@ import {Router} from "express";
 import {register} from "@controllers/user/register";
 import {
     validateGetUserBasketFields,
-    validateLoginFields,
+    validateLoginFields, validateMakeOrderFields,
     validateQueryGetAllUsers,
     validateRegisterFields,
     validateShowMyBasketFields,
@@ -21,6 +21,7 @@ import {validateFields} from "@/middlewares/validateFields.middleware";
 import {showMyBasket} from "@controllers/user/showMyBasket";
 import {getUserBasket} from "@controllers/user/getUserBasket";
 import {requireRole} from "@/middlewares/requireRole";
+import {makeOrder} from "@controllers/user/makeOrder";
 
 var userRouter = Router()
 
@@ -43,6 +44,13 @@ userRouter.get(
 userRouter.get(ENDPOINTS.methods.all, requireRole(['admin']), validateQueryGetAllUsers(), validateFields, getAllUsers)
 userRouter.post(ENDPOINTS.methods.register, validateRegisterFields(), validateFields, register)
 userRouter.post(ENDPOINTS.methods.login, validateLoginFields(), validateFields, login)
+userRouter.post(
+    ENDPOINTS.methods.order,
+    requireRole(['user', 'admin']),
+    validateMakeOrderFields(),
+    validateFields,
+    makeOrder
+)
 userRouter.put(ENDPOINTS.methods.me, requireRole(), validateUpdateMeFields(), validateFields, updateMe)
 userRouter.delete(ENDPOINTS.methods.logout, requireRole(), logout)
 userRouter.put(
