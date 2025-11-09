@@ -25,7 +25,7 @@ categoriesRouter.get(
 )
 categoriesRouter.post(
     ENDPOINTS.def,
-    requireRole('admin'),
+    requireRole(['admin']),
     upload.single('image'),
     validateCreateCategoryFields(),
     validateFields,
@@ -33,7 +33,7 @@ categoriesRouter.post(
 )
 categoriesRouter.put(
     ENDPOINTS.byId,
-    requireRole('admin'),
+    requireRole(['admin']),
     upload.single('image'),
     validateUpdateCategoryFields(),
     validateFields,
@@ -41,7 +41,7 @@ categoriesRouter.put(
 )
 categoriesRouter.delete(
     ENDPOINTS.byId,
-    requireRole('admin'),
+    requireRole(['admin']),
     validateDeleteCategoryFields(),
     validateFields,
     deleteCategory

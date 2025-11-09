@@ -28,26 +28,26 @@ userRouter.get(ENDPOINTS.def, requireRole(), getMe)
 userRouter.get(ENDPOINTS.methods.refresh, refresh)
 userRouter.get(
     ENDPOINTS.methods.basket,
-    requireRole(),
+    requireRole(['user', 'admin']),
     validateShowMyBasketFields(),
     validateFields,
     showMyBasket
 )
 userRouter.get(
     ENDPOINTS.byId + ENDPOINTS.methods.basket,
-    requireRole('admin'),
+    requireRole(['admin']),
     validateGetUserBasketFields(),
     validateFields,
     getUserBasket
 )
-userRouter.get(ENDPOINTS.methods.all, requireRole('admin'), validateQueryGetAllUsers(), validateFields, getAllUsers)
+userRouter.get(ENDPOINTS.methods.all, requireRole(['admin']), validateQueryGetAllUsers(), validateFields, getAllUsers)
 userRouter.post(ENDPOINTS.methods.register, validateRegisterFields(), validateFields, register)
 userRouter.post(ENDPOINTS.methods.login, validateLoginFields(), validateFields, login)
 userRouter.put(ENDPOINTS.methods.me, requireRole(), validateUpdateMeFields(), validateFields, updateMe)
 userRouter.delete(ENDPOINTS.methods.logout, requireRole(), logout)
 userRouter.put(
     ENDPOINTS.byId + ENDPOINTS.methods.update,
-    requireRole('admin'),
+    requireRole(['admin']),
     validateUpdatePersonFields(),
     validateFields,
     updateUser

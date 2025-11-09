@@ -35,14 +35,14 @@ productsRouter.get(
 // параметры, но query видит, что блять?
 productsRouter.get(
     ENDPOINTS.resources.basket + ENDPOINTS.byId, // /api/products/baskets/:id?...
-    requireRole('admin'),
+    requireRole(['admin']),
     validateGetProductInBasketsFields(),
     validateFields,
     getProductInBaskets
 )
 productsRouter.post(
     ENDPOINTS.def,
-    requireRole('admin'),
+    requireRole(['admin']),
     upload.single('image'),
     validateCreateProductFields(),
     validateFields,
@@ -50,14 +50,14 @@ productsRouter.post(
 )
 productsRouter.post(
     ENDPOINTS.byId,
-    requireRole(),
+    requireRole(['user']),
     validateAddToBasketFields(),
     validateFields,
     addToBasket
 )
 productsRouter.put(
     ENDPOINTS.byId,
-    requireRole('admin'),
+    requireRole(['admin']),
     upload.single('image'),
     validateUpdateProductFields(),
     validateFields,
@@ -65,7 +65,7 @@ productsRouter.put(
 )
 productsRouter.delete(
     ENDPOINTS.byId,
-    requireRole('admin'),
+    requireRole(['admin']),
     validateDeleteProductFields(),
     validateFields,
     deleteProduct
