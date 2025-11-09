@@ -10,7 +10,7 @@ export type SessionClaims = {
 } & JwtPayload
 export type RequestWithUser = Request & { user?: SessionClaims };
 
-export const requireRole = (requiredRole?: 'user' | 'admin' | 'courier') =>
+export const requireRole = (requiredRole?: SessionClaims['role'][]) =>
     async (req: RequestWithUser, _res: Response, next: NextFunction) => {
         try {
             const token = extractTokenFromHeader(req);
@@ -18,7 +18,7 @@ export const requireRole = (requiredRole?: 'user' | 'admin' | 'courier') =>
 
             const decoded = jwt.verify(token, JWT_INFO.SECRET_KEY_SESSION) as SessionClaims
             if (!decoded) throw ApiErrors.requireAdministrator('Unauthorized')
-            if (requiredRole && decoded.role !== requiredRole) throw ApiErrors.requireAdministrator('Unauthorized')
+            if (requiredRole && !requiredRole.includes(decoded.role)) throw ApiErrors.requireAdministrator('Unauthorized')
 
             req.user = decoded
             return next()
