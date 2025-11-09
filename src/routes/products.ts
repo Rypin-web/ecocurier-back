@@ -50,7 +50,7 @@ productsRouter.post(
 )
 productsRouter.post(
     ENDPOINTS.byId,
-    requireRole(['user']),
+    requireRole(['user', 'admin']),
     validateAddToBasketFields(),
     validateFields,
     addToBasket
