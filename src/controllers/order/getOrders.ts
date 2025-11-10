@@ -26,19 +26,33 @@ export async function getOrders(req: RequestWithUser, res: Response, next: NextF
                 },
                 order: [['createdAt', 'ASC']]
             })
-            : await Order.findAndCountAll({
-                where: {
-                    status: status
-                },
-                offset: offset,
-                limit: limit,
-                include: {
-                    model: User,
-                    as: 'customer',
-                    attributes: ['id', 'first_name', 'last_name', 'email', 'phone']
-                },
-                order: [['createdAt', order]]
-            })
+            : req.user?.role === 'user'
+                ? await Order.findAndCountAll({
+                    where: {
+                        userId: req.user?.id
+                    },
+                    offset,
+                    limit,
+                    include: {
+                        model: User,
+                        as: 'customer',
+                        attributes: ['id', 'first_name', 'last_name']
+                    },
+                    order: [['createdAt', 'DESC']]
+                })
+                : await Order.findAndCountAll({
+                    where: {
+                        status: status
+                    },
+                    offset: offset,
+                    limit: limit,
+                    include: {
+                        model: User,
+                        as: 'customer',
+                        attributes: ['id', 'first_name', 'last_name', 'email', 'phone']
+                    },
+                    order: [['createdAt', order]]
+                })
 
         return res.status(200).send({
             msg: 'Success get orders',
