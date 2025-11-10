@@ -27,7 +27,7 @@ export async function makeOrder(req: RequestWithUser, res: Response, next: NextF
                 transaction: t
             }) as (Basket & { product: Products })[]
 
-            if (userBasket.length < 1) throw ApiErrors.invalidCredentials('Basket is empty')
+            if (userBasket.length < 1) throw ApiErrors.validationFields('Basket is empty')
 
             orderPayload.totalPrice = userBasket.reduce(
                 (pv, cv) => pv + cv.quantity * cv.product.price,
