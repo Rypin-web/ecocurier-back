@@ -21,7 +21,7 @@ import {validateFields} from "@/middlewares/validateFields.middleware";
 import {showMyBasket} from "@controllers/user/showMyBasket";
 import {getUserBasket} from "@controllers/user/getUserBasket";
 import {requireRole} from "@/middlewares/requireRole";
-import {makeOrder} from "@controllers/user/makeOrder";
+import {makeOrder} from "@controllers/order/makeOrder";
 
 var userRouter = Router()
 
