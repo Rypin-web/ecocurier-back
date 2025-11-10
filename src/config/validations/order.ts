@@ -1,10 +1,10 @@
 import {checkSchema} from "express-validator";
 
-export const validateGetOrdersFields = () => checkSchema({
+export var validateGetOrdersFields = () => checkSchema({
     limit: {
         optional: true,
         isInt: {
-            options: { min: 1, max: 100 },
+            options: {min: 1, max: 100},
             errorMessage: 'Limit must be an integer between 1 and 100'
         },
         toInt: true
@@ -12,7 +12,7 @@ export const validateGetOrdersFields = () => checkSchema({
     page: {
         optional: true,
         isInt: {
-            options: { min: 1 },
+            options: {min: 1},
             errorMessage: 'Page number must be an integer greater than 0'
         },
         toInt: true
@@ -32,3 +32,12 @@ export const validateGetOrdersFields = () => checkSchema({
         },
     }
 });
+
+export var validateCancelMyOrder = () => checkSchema({
+    id: {
+        in: 'params',
+        notEmpty: true,
+        isUUID: true,
+        errorMessage: 'Order id is required',
+    }
+})
