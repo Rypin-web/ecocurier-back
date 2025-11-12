@@ -33,7 +33,7 @@ export var validateGetOrdersFields = () => checkSchema({
     }
 });
 
-export var validateCancelMyOrder = () => checkSchema({
+export var validateCancelMyOrderFields = () => checkSchema({
     id: {
         in: 'params',
         notEmpty: true,
@@ -41,3 +41,33 @@ export var validateCancelMyOrder = () => checkSchema({
         errorMessage: 'Order id is required',
     }
 })
+
+export var validateChangeOrderStatusFields = () => checkSchema({
+    orderId: {
+        in: 'params',
+        notEmpty: {
+            errorMessage: 'Order id is required'
+        },
+        isUUID: {
+            errorMessage: 'Order id must be a valid UUID'
+        }
+    },
+    status: {
+        in: 'body',
+        notEmpty: {
+            errorMessage: 'Status is required'
+        },
+        isIn: {
+            options: [['pending', 'shipped', 'delivered', 'cancelled']],
+            errorMessage: 'Status must be one of: pending, shipped, delivered, cancelled'
+        },
+        trim: true
+    },
+    courierId: {
+        in: 'body',
+        optional: true,
+        isUUID: {
+            errorMessage: 'courierId must be a valid UUID'
+        }
+    }
+});
