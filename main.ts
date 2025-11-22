@@ -15,8 +15,8 @@ app.use(Express.json())
 app.use(cors(CORS))
 app.use(helmet())
 app.use(cookieParser())
+app.use(ENDPOINTS.base + ENDPOINTS.resources.staticContent, Express.static(path.join(rootPath, imagePath)))
 app.use(ENDPOINTS.base, router)
-app.use(ENDPOINTS.base + ENDPOINTS.resources.static, Express.static(path.join(rootPath, imagePath)))
 app.use(errorsMiddleware)
 
 sequelize.sync().then(() => {
@@ -27,7 +27,7 @@ sequelize.sync().then(() => {
     app.listen(PORT, () => {
         console.log('Server work on ' + PORT)
         console.warn('http://localhost:' + PORT + '/api')
-        console.log('http://localhost:' + PORT + '/api' + ENDPOINTS.resources.static)
+        console.log('http://localhost:' + PORT + '/api' + ENDPOINTS.resources.staticContent)
     })
 }).catch((err) => {
     console.log('Database connection error!')
