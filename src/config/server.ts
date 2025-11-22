@@ -32,6 +32,7 @@ export var ENDPOINTS = {
         products: '/products',
         basket: '/baskets',
         order: '/orders',
+        static: '/uploads'
     },
     methods: {
         update: '/update',
