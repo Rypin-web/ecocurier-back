@@ -8,14 +8,27 @@ import {sequelize} from "@config/database";
 import {errorsMiddleware} from "@/middlewares/errors.middleware";
 import {initAssociations} from "@utils/initAssociations";
 import * as path from "node:path";
+import * as process from "node:process";
 
 var app = Express()
 
 app.use(Express.json())
-app.use(cors(CORS))
 app.use(helmet())
+app.use(cors(CORS))
 app.use(cookieParser())
-app.use(ENDPOINTS.base + ENDPOINTS.resources.staticContent, Express.static(path.join(rootPath, imagePath)))
+app.use(ENDPOINTS.base + ENDPOINTS.resources.staticContent,
+    cors(CORS),
+    Express.static(path.join(rootPath, imagePath), {
+        setHeaders: (res) => {
+            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173')
+            res.setHeader('Access-Control-Allow-Credentials', 'true')
+            res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin')
+            res.setHeader('Access-Control-Allow-Methods', 'GET')
+            res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+            res.setHeader('Cache-Control', 'public, max-age=86400')
+        }
+    })
+)
 app.use(ENDPOINTS.base, router)
 app.use(errorsMiddleware)
 
