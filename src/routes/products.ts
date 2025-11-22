@@ -22,7 +22,6 @@ var productsRouter = Router({mergeParams: true})
 
 productsRouter.get(
     ENDPOINTS.def,
-    requireRole(),
     validateGetAllProductsFields(),
     validateFields,
     getAllProducts

@@ -18,7 +18,6 @@ var categoriesRouter = Router()
 
 categoriesRouter.get(
     ENDPOINTS.def,
-    requireRole(),
     validateGetAllCategoriesFields(),
     validateFields,
     getAllCategories
