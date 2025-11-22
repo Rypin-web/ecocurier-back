@@ -1,6 +1,7 @@
 import {NextFunction, Response} from 'express'
 import {ApiErrorsType} from "@utils/ApiErrors";
-import { RequestWithUser } from './requireRole';
+import {RequestWithUser} from './requireRole';
+import {JsonWebTokenError} from "jsonwebtoken";
 
 export function errorsMiddleware(err: ApiErrorsType, req: RequestWithUser, res: Response, _next: NextFunction) {
     var responseData = {
@@ -18,7 +19,15 @@ export function errorsMiddleware(err: ApiErrorsType, req: RequestWithUser, res: 
     console.log('@@@ Error response!')
     console.log(err)
 
-    res.status(err.status || 500).send({
+    if (err instanceof JsonWebTokenError) {
+        return res.status(401).send({
+            msg: err.msg,
+            ...responseData
+        })
+    }
+
+
+    return res.status(err.status || 500).send({
         msg: err.msg,
         ...responseData
     })
