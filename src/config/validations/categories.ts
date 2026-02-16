@@ -31,8 +31,12 @@ export var validateGetAllCategoriesFields = () => checkSchema({
         notEmpty: true,
         isInt: true,
         toInt: true,
-        isLength: {options: {min: 1, max: 20}},
+        isLength: {options: {min: 1, max: 100}},
         errorMessage: 'Limit must be a positive integer between 1 and 100'
+    },
+    q: {
+        optional: true,
+        isString: {errorMessage: 'q must be string'}
     }
 }, ['query'])
 
