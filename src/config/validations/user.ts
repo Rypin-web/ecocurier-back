@@ -69,6 +69,10 @@ export var validateQueryGetAllUsers = () => checkSchema({
         notEmpty: {errorMessage: 'Limit is required'},
         toInt: true,
         isInt: {options: {min: 1, max: 100}, errorMessage: 'Limit must be an integer'},
+    },
+    q: {
+        optional: true,
+        isString: {errorMessage: 'q must be string'}
     }
 }, ['query'])
 
