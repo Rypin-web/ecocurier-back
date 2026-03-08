@@ -24,7 +24,7 @@ export async function getAllProducts(req: Request, res: Response, next: NextFunc
             msg: 'Success get products',
             data: {
                 total: products.count,
-                products: products.rows
+                data: products.rows
             }
         });
     } catch (e) {

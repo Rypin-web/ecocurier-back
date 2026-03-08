@@ -58,7 +58,7 @@ export async function getOrders(req: RequestWithUser, res: Response, next: NextF
             msg: 'Success get orders',
             data: {
                 total: orders.count,
-                orders: orders.rows
+                data: orders.rows
             }
         })
     } catch (e) {

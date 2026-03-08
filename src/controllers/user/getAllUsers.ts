@@ -29,7 +29,7 @@ export async function getAllUsers(req: Request, res: Response, next: NextFunctio
             msg: 'Success get users',
             data: {
                 total: users.count,
-                users: users.rows
+                data: users.rows
             }
         })
     } catch (e) {
